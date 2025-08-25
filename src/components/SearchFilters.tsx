@@ -10,16 +10,12 @@ import { X, Filter, RotateCcw } from 'lucide-react'
 import { useState } from 'react'
 
 interface Filters {
-  marca: string
-  modelo: string
-  ano: string
+  tipo: string
+  localizacao: string
   precoMin: string
   precoMax: string
-  quilometragem: string
-  combustivel: string
-  transmissao: string
-  cor: string
-  localizacao: string
+  quartos: string
+  area: string
 }
 
 interface SearchFiltersProps {
@@ -98,15 +94,15 @@ export function SearchFilters({ filters, onFilterChange }: SearchFiltersProps) {
 
         {/* Price Range */}
         <div className="space-y-3">
-          <Label>Faixa de Preço</Label>
-          <div className="grid grid-cols-2 gap-2">
+          <Label className="text-sm font-medium">Faixa de Preço</Label>
+          <div className="grid grid-cols-2 gap-3">
             <Input
-              placeholder="Mínimo"
+              placeholder="Preço mínimo"
               value={filters.precoMin}
               onChange={(e) => onFilterChange('precoMin', e.target.value)}
             />
             <Input
-              placeholder="Máximo"
+              placeholder="Preço máximo"
               value={filters.precoMax}
               onChange={(e) => onFilterChange('precoMax', e.target.value)}
             />
@@ -160,20 +156,24 @@ export function SearchFilters({ filters, onFilterChange }: SearchFiltersProps) {
         </div>
 
         {/* Clear Filters */}
-        <Button
-          variant="outline"
-          onClick={() => {
-            onFilterChange('tipo', '')
-            onFilterChange('localizacao', '')
-            onFilterChange('precoMin', '')
-            onFilterChange('precoMax', '')
-            onFilterChange('quartos', '')
-            onFilterChange('area', '')
-          }}
-          className="w-full"
-        >
-          Limpar Filtros
-        </Button>
+        <div className="pt-4">
+          <Button
+            variant="outline"
+            size="sm"
+            className="w-full"
+            onClick={() => {
+              onFilterChange('tipo', '')
+              onFilterChange('localizacao', '')
+              onFilterChange('precoMin', '')
+              onFilterChange('precoMax', '')
+              onFilterChange('quartos', '')
+              onFilterChange('area', '')
+            }}
+          >
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Limpar Filtros
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )

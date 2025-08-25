@@ -1,7 +1,7 @@
 'use client'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Filter, Grid3X3, List, Grid } from 'lucide-react'
+import { Filter, List, Grid } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 interface SearchHeaderProps {
