@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { MapPin, Bed, Bath, Square, Car, Heart, Share2, Eye, Filter, Grid3X3, List, Trash2 } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Car, Heart, Share2, Eye, Filter, Grid, List, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 interface Property {
@@ -257,7 +257,7 @@ export default function PropertiesPage() {
                           : 'text-foreground/60 hover:text-foreground'
                       }`}
                     >
-                      <Grid3X3 className="h-4 w-4" />
+                      <Grid className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => setViewMode('list')}
