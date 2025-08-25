@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Real Estate Frontend Platform
 
-## Getting Started
+A modern, responsive real estate platform built with Next.js 15, TypeScript, and Tailwind CSS. This platform provides comprehensive tools for buying, selling, and managing real estate properties.
 
-First, run the development server:
+## 🏠 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### For Buyers
+- Advanced property search with multiple filters
+- Property comparison tools
+- Favorites and saved searches
+- AI-powered recommendations
+- Detailed property information and photos
+
+### For Sellers
+- Easy property listing creation
+- Advanced analytics and insights
+- Lead management system
+- Professional property showcase
+- Marketing tools and promotion
+
+### For Real Estate Agents
+- Comprehensive dashboard
+- Client management tools
+- Property portfolio management
+- Performance analytics
+- Lead generation tools
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui
+- **Icons**: Lucide React
+- **State Management**: React Context API
+- **Responsive Design**: Mobile-first approach
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── auth/              # Authentication pages
+│   ├── dashboard/         # User dashboards
+│   ├── property/          # Property detail pages
+│   ├── search/            # Search results
+│   └── pricing/           # Subscription plans
+├── components/            # Reusable UI components
+│   ├── ui/               # shadcn/ui components
+│   ├── dashboard/        # Dashboard-specific components
+│   └── ...               # Other components
+├── context/              # React Context providers
+├── hooks/                # Custom React hooks
+├── layouts/              # Layout components
+└── styles/               # Global styles and CSS
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Key Components
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Hero Section**: Advanced property search with filters
+- **Featured Properties**: Showcase of premium listings
+- **Platform Benefits**: Clear value proposition for different user types
+- **Search System**: Comprehensive property search with filters
+- **Property Cards**: Rich property information display
+- **Dashboard**: Role-based user interfaces
+- **Pricing Plans**: Subscription management
+- **Chat Widget**: AI-powered customer support
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd real-estate-frontend
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+## 📱 Responsive Design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The platform is built with a mobile-first approach and includes:
+- Responsive grid layouts
+- Touch-friendly interfaces
+- Optimized navigation for mobile devices
+- Adaptive content display
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌙 Dark/Light Mode
+
+- System preference detection
+- Manual theme toggle
+- Persistent theme selection
+- Consistent theming across all components
+
+## 🔧 Customization
+
+The platform is highly customizable with:
+- Configurable color schemes
+- Modular component architecture
+- Easy content management
+- Flexible layout system
+
+## 📊 Performance Features
+
+- Next.js 15 optimizations
+- Efficient image loading
+- Optimized bundle sizes
+- Fast page transitions
+- SEO optimization
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support and questions, please contact the development team or create an issue in the repository.
