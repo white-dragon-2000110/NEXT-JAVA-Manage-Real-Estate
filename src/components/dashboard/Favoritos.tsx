@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -16,7 +16,11 @@ import {
   MapPin, 
   Calendar, 
   Building,
-  Home
+  Home,
+  X,
+  Phone,
+  MessageSquare,
+  ExternalLink
 } from 'lucide-react'
 
 interface FavoriteProperty {
@@ -92,6 +96,9 @@ export function Favoritos() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
   const [sortBy, setSortBy] = useState('recent')
+  const [selectedProperty, setSelectedProperty] = useState<FavoriteProperty | null>(null)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalAction, setModalAction] = useState<'view' | 'share' | 'delete' | null>(null)
 
   const filteredFavorites = mockFavorites.filter(property => {
     const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -152,6 +159,39 @@ export function Favoritos() {
     }
   }
 
+  const handleButtonClick = (property: FavoriteProperty, action: 'view' | 'share' | 'delete') => {
+    setSelectedProperty(property)
+    setModalAction(action)
+    setModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setModalOpen(false)
+    setSelectedProperty(null)
+    setModalAction(null)
+  }
+
+  const handleDelete = () => {
+    if (selectedProperty) {
+      console.log('Deleting property:', selectedProperty.id)
+    }
+    closeModal()
+  }
+
+  const handleShare = () => {
+    if (selectedProperty) {
+      console.log('Sharing property:', selectedProperty.id)
+    }
+    closeModal()
+  }
+
+  const handleView = () => {
+    if (selectedProperty) {
+      console.log('Viewing property:', selectedProperty.id)
+    }
+    closeModal()
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -160,10 +200,6 @@ export function Favoritos() {
           <h1 className="text-3xl font-bold text-foreground bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">Meus Favoritos</h1>
           <p className="text-foreground/60">Gerencie seus imóveis favoritos</p>
         </div>
-        {/* <Button>
-          <Heart className="h-4 w-4 mr-2" />
-          Adicionar Favorito
-        </Button> */}
       </div>
 
       {/* Filters */}
@@ -230,10 +266,10 @@ export function Favoritos() {
         </CardContent>
       </Card>
 
-      {/* Favorites Grid */}
+      {/* Favorites Grid - KEY: Using flex flex-col for consistent button alignment */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedFavorites.map((property) => (
-          <Card key={property.id} className="group hover:shadow-lg transition-shadow">
+          <Card key={property.id} className="group hover:shadow-lg transition-shadow flex flex-col">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
@@ -249,7 +285,7 @@ export function Favoritos() {
               <CardTitle className="text-lg leading-tight">{property.title}</CardTitle>
             </CardHeader>
             
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 flex-1 flex flex-col">
               {/* Image */}
               <div className="relative h-48 bg-muted rounded-lg overflow-hidden">
                 <img
@@ -293,23 +329,39 @@ export function Favoritos() {
                 )}
               </div>
               
-              {/* Actions */}
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1">
-                  <Eye className="h-4 w-4 mr-2" />
-                  Ver
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Share2 className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="sm" className="text-destructive hover:text-destructive">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-              
-              {/* Added Date */}
-              <div className="text-xs text-foreground/60 text-center">
-                Adicionado em {new Date(property.addedDate).toLocaleDateString('pt-BR')}
+              {/* Actions - KEY: Using mt-auto to push buttons to bottom */}
+              <div className="mt-auto">
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={() => handleButtonClick(property, 'view')}
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    Ver
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => handleButtonClick(property, 'share')}
+                  >
+                    <Share2 className="h-4 w-4" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-destructive hover:text-destructive"
+                    onClick={() => handleButtonClick(property, 'delete')}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+                
+                {/* Added Date */}
+                <div className="text-xs text-foreground/60 text-center mt-3">
+                  Adicionado em {new Date(property.addedDate).toLocaleDateString('pt-BR')}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -335,6 +387,145 @@ export function Favoritos() {
           </CardContent>
         </Card>
       )}
+
+      {/* Property Action Modal */}
+      {modalOpen && selectedProperty && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-background rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-border">
+              <div>
+                <h2 className="text-xl font-semibold text-foreground">
+                  {modalAction === 'view' && 'Ver Detalhes'}
+                  {modalAction === 'share' && 'Compartilhar Imóvel'}
+                  {modalAction === 'delete' && 'Excluir Imóvel'}
+                </h2>
+                <p className="text-sm text-foreground/60 mt-1">
+                  {selectedProperty.title}
+                </p>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={closeModal}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {/* Property Image */}
+              <div className="relative h-48 bg-muted rounded-lg overflow-hidden mb-4">
+                <img
+                  src={selectedProperty.image}
+                  alt={selectedProperty.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-2 right-2">
+                  <Badge variant={selectedProperty.isActive ? 'default' : 'secondary'}>
+                    {selectedProperty.isActive ? 'Ativo' : 'Inativo'}
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Property Details */}
+              <div className="space-y-4 mb-6">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">{formatPrice(selectedProperty.price)}</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-foreground/40" />
+                    <span className="truncate">{selectedProperty.location}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Building className="h-4 w-4 text-foreground/40" />
+                    <span>{selectedProperty.area}m²</span>
+                  </div>
+                  {selectedProperty.bedrooms > 0 && (
+                    <div className="flex items-center gap-2">
+                      <Home className="h-4 w-4 text-foreground/40" />
+                      <span>{selectedProperty.bedrooms} quartos</span>
+                    </div>
+                  )}
+                  {selectedProperty.bathrooms > 0 && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4 text-foreground/40" />
+                      <span>{selectedProperty.bathrooms} banheiros</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-xs text-foreground/60 text-center">
+                  Adicionado em {new Date(selectedProperty.addedDate).toLocaleDateString('pt-BR')}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                {modalAction === 'view' && (
+                  <>
+                    <Button className="w-full" onClick={handleView}>
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Ver Detalhes Completos
+                    </Button>
+                    <Button variant="outline" className="w-full" onClick={closeModal}>
+                      Fechar
+                    </Button>
+                  </>
+                )}
+
+                {modalAction === 'share' && (
+                  <>
+                    <Button className="w-full" onClick={handleShare}>
+                      <Share2 className="h-4 w-4 mr-2" />
+                      Copiar Link
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      Compartilhar via WhatsApp
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      <Phone className="h-4 w-4 mr-2" />
+                      Compartilhar via SMS
+                    </Button>
+                    <Button variant="outline" className="w-full" onClick={closeModal}>
+                      Cancelar
+                    </Button>
+                  </>
+                )}
+
+                {modalAction === 'delete' && (
+                  <>
+                    <div className="text-center p-4 bg-destructive/10 rounded-lg border border-destructive/20">
+                      <p className="text-sm text-destructive font-medium mb-2">
+                        Tem certeza que deseja excluir este imóvel dos favoritos?
+                      </p>
+                      <p className="text-xs text-destructive/70">
+                        Esta ação não pode ser desfeita.
+                      </p>
+                    </div>
+                    <Button 
+                      variant="destructive" 
+                      className="w-full" 
+                      onClick={handleDelete}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Sim, Excluir
+                    </Button>
+                    <Button variant="outline" className="w-full" onClick={closeModal}>
+                      Cancelar
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
-} 
+}

@@ -44,7 +44,7 @@ const pricingPlans: PricingPlan[] = [
   },
   {
     id: 'premium',
-    name: 'Premium',
+    name: 'Avançado',
     description: 'por mês',
     price: 49.90,
     currency: 'BRL',
@@ -62,18 +62,18 @@ const pricingPlans: PricingPlan[] = [
     popular: true,
     icon: Star,
     color: 'text-yellow-600',
-    buttonText: 'Assinar Premium',
+    buttonText: 'Assinar Avançado',
     buttonVariant: 'default'
   },
   {
     id: 'pro',
-    name: 'Profissional',
+    name: 'Empresarial',
     description: 'por mês',
     price: 99.90,
     currency: 'BRL',
     billing: 'por mês',
     features: [
-      'Tudo do plano Premium',
+      'Tudo do plano Avançado',
       'Leads qualificados e pontuados',
       'IA avançada para otimização',
       'Anúncios ilimitados',
@@ -86,7 +86,7 @@ const pricingPlans: PricingPlan[] = [
     ],
     icon: Crown,
     color: 'text-purple-600',
-    buttonText: 'Assinar Pro',
+    buttonText: 'Assinar Empresarial',
     buttonVariant: 'outline'
   }
 ]
@@ -112,11 +112,11 @@ export default function PricingPage() {
         {/* Header */}
         <div className="text-center py-16 px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
-            Choose Your Plan
+            Escolha seu Plano
           </h1>
           <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-8">
-            Find the perfect plan to boost your real estate sales. 
-            Start free and grow as your business expands.
+            Encontre o plano perfeito para impulsionar suas vendas imobiliárias. 
+            Comece grátis e cresça conforme seu negócio se expande.
           </p>
 
           {/* Billing Toggle */}

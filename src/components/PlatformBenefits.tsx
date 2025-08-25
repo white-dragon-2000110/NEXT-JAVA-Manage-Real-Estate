@@ -87,7 +87,7 @@ export function PlatformBenefits() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {userTypes.map((userType) => (
-            <Card key={userType.type} className="relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <Card key={userType.type} className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col">
               <CardHeader className="text-center pb-6">
                 <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${userType.bgColor} mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <userType.icon className={`h-8 w-8 ${userType.color}`} />
@@ -103,7 +103,7 @@ export function PlatformBenefits() {
                 </p>
               </CardHeader>
               
-              <CardContent className="pt-0">
+              <CardContent className="pt-0 flex-1 flex flex-col">
                 <ul className="space-y-3 mb-6">
                   {userType.features.map((feature, index) => (
                     <li key={index} className="flex items-start space-x-3">
@@ -115,15 +115,17 @@ export function PlatformBenefits() {
                   ))}
                 </ul>
                 
-                <Button 
-                  variant={userType.ctaVariant} 
-                  className="w-full"
-                  asChild
-                >
-                  <Link href={userType.type === 'COMPRADOR' ? '/properties' : userType.type === 'VENDEDOR' ? '/sell' : '/dashboard/corretor'}>
-                    {userType.cta}
-                  </Link>
-                </Button>
+                <div className="mt-auto">
+                  <Button 
+                    variant={userType.ctaVariant} 
+                    className="w-full"
+                    asChild
+                  >
+                    <Link href={userType.type === 'COMPRADOR' ? '/properties' : userType.type === 'VENDEDOR' ? '/sell' : '/dashboard/corretor'}>
+                      {userType.cta}
+                    </Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { MapPin, Bed, Bath, Square, Car, Heart, Share2, Eye, Filter, Grid3X3, List } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Car, Heart, Share2, Eye, Filter, Grid3X3, List, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 interface Property {
@@ -112,6 +112,8 @@ export default function PropertiesPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null)
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -128,6 +130,27 @@ export default function PropertiesPage() {
     const matchesType = filterType === 'all' || property.type === filterType
     return matchesSearch && matchesType
   })
+
+  const handleDeleteClick = (property: Property) => {
+    setPropertyToDelete(property)
+    setDeleteModalOpen(true)
+  }
+
+  const handleDeleteConfirm = () => {
+    if (propertyToDelete) {
+      // Here you would typically make an API call to delete the property
+      console.log('Deleting property:', propertyToDelete.id)
+      // Remove from mock data (in real app, this would be handled by API response)
+      // mockProperties = mockProperties.filter(prop => prop.id !== propertyToDelete.id)
+    }
+    setDeleteModalOpen(false)
+    setPropertyToDelete(null)
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteModalOpen(false)
+    setPropertyToDelete(null)
+  }
 
   return (
     <RootLayout>
@@ -254,13 +277,13 @@ export default function PropertiesPage() {
               {viewMode === 'grid' ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {filteredProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} />
+                    <PropertyCard key={property.id} property={property} onDelete={handleDeleteClick} />
                   ))}
                 </div>
               ) : (
                 <div className="space-y-4">
                   {filteredProperties.map((property) => (
-                    <PropertyListCard key={property.id} property={property} />
+                    <PropertyListCard key={property.id} property={property} onDelete={handleDeleteClick} />
                   ))}
                 </div>
               )}
@@ -292,11 +315,49 @@ export default function PropertiesPage() {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-background rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="p-2 bg-red-100 rounded-full">
+                <Trash2 className="h-6 w-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">
+                Confirmar Exclusão
+              </h3>
+            </div>
+            
+            <p className="text-foreground/70 mb-6">
+              Tem certeza que deseja excluir o imóvel "{propertyToDelete?.title}"? 
+              Esta ação não pode ser desfeita.
+            </p>
+            
+            <div className="flex space-x-3">
+              <Button 
+                variant="outline" 
+                onClick={handleDeleteCancel}
+                className="flex-1"
+              >
+                Cancelar
+              </Button>
+              <Button 
+                variant="destructive" 
+                onClick={handleDeleteConfirm}
+                className="flex-1"
+              >
+                Excluir
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </RootLayout>
   )
 }
 
-function PropertyCard({ property }: { property: Property }) {
+function PropertyCard({ property, onDelete }: { property: Property; onDelete: (property: Property) => void }) {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const formatPrice = (price: number) => {
@@ -309,7 +370,7 @@ function PropertyCard({ property }: { property: Property }) {
   }
 
   return (
-    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg flex flex-col">
       <div className="relative">
         <div className="w-full h-48 bg-muted rounded-t-lg flex items-center justify-center">
           <div className="text-foreground/40 text-sm">Imagem do Imóvel</div>
@@ -340,6 +401,14 @@ function PropertyCard({ property }: { property: Property }) {
           >
             <Share2 className="h-4 w-4" />
           </Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+            onClick={() => onDelete(property)}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
@@ -353,7 +422,7 @@ function PropertyCard({ property }: { property: Property }) {
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 flex-1 flex flex-col">
         <div className="text-2xl font-bold text-primary mb-4">
           {formatPrice(property.price)}
         </div>
@@ -377,17 +446,19 @@ function PropertyCard({ property }: { property: Property }) {
           </div>
         </div>
 
-        <Button className="w-full" asChild>
-          <Link href={`/property/${property.id}`}>
-            Ver Detalhes
-          </Link>
-        </Button>
+        <div className="mt-auto">
+          <Button className="w-full" asChild>
+            <Link href={`/property/${property.id}`}>
+              Ver Detalhes
+            </Link>
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
 }
 
-function PropertyListCard({ property }: { property: Property }) {
+function PropertyListCard({ property, onDelete }: { property: Property; onDelete: (property: Property) => void }) {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const formatPrice = (price: number) => {
@@ -470,6 +541,14 @@ function PropertyListCard({ property }: { property: Property }) {
             <Button variant="outline">
               <Share2 className="h-4 w-4 mr-2" />
               Compartilhar
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => onDelete(property)}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              Excluir
             </Button>
           </div>
         </div>

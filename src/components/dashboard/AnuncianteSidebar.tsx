@@ -22,6 +22,7 @@ import {
 interface AnuncianteSidebarProps {
   activeSection: 'criar' | 'gerenciar' | 'leads' | 'agendamentos' | 'relatorios'
   onSectionChange: (section: 'criar' | 'gerenciar' | 'leads' | 'agendamentos' | 'relatorios') => void
+  onMobileClose?: () => void
 }
 
 const navigationItems = [
@@ -62,12 +63,12 @@ const navigationItems = [
   }
 ]
 
-export function AnuncianteSidebar({ activeSection, onSectionChange }: AnuncianteSidebarProps) {
+export function AnuncianteSidebar({ activeSection, onSectionChange, onMobileClose }: AnuncianteSidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   return (
-    <div className={`fixed left-0 top-0 h-full bg-background border-r border-border transition-all duration-300 ${
-      isCollapsed ? 'w-16' : 'w-64'
+    <div className={`lg:fixed lg:left-0 lg:top-0 h-full bg-background border-r border-border transition-all duration-300 z-50 ${
+      isCollapsed ? 'w-16' : 'w-full lg:w-64'
     }`}>
       <div className="flex flex-col h-full">
         {/* Header */}
@@ -124,7 +125,10 @@ export function AnuncianteSidebar({ activeSection, onSectionChange }: Anunciante
             return (
               <button
                 key={item.id}
-                onClick={() => onSectionChange(item.id as any)}
+                onClick={() => {
+                  onSectionChange(item.id as any)
+                  onMobileClose?.()
+                }}
                 className={`w-full group relative transition-all duration-200 ${
                   isActive 
                     ? 'bg-primary text-primary-foreground' 

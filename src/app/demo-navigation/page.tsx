@@ -75,25 +75,25 @@ export default function DemoNavigationPage() {
 
   const dashboardItems = [
     {
-      title: 'Admin Dashboard',
+      title: 'Painel Admin',
       description: 'Painel administrativo',
       href: '/dashboard/admin',
       color: 'text-red-600'
     },
     {
-      title: 'Anunciante Dashboard',
+      title: 'Painel Anunciante',
       description: 'Painel do anunciante',
       href: '/dashboard/anunciante',
       color: 'text-blue-600'
     },
     {
-      title: 'Cliente Dashboard',
+      title: 'Painel Cliente',
       description: 'Painel do cliente',
       href: '/dashboard/cliente',
       color: 'text-green-600'
     },
     {
-      title: 'Corretor Dashboard',
+      title: 'Painel Corretor',
       description: 'Painel do corretor',
       href: '/dashboard/corretor',
       color: 'text-purple-600'
@@ -143,20 +143,22 @@ export default function DemoNavigationPage() {
               {navigationItems.map((item, index) => {
                 const Icon = item.icon
                 return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card key={index} className="hover:shadow-lg transition-shadow flex flex-col">
                     <CardHeader>
                       <div className="flex items-center space-x-3">
                         <Icon className={`h-6 w-6 ${item.color}`} />
                         <CardTitle className="text-lg">{item.title}</CardTitle>
                       </div>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="flex-1 flex flex-col">
                       <p className="text-foreground/70 mb-4">{item.description}</p>
-                      <Button asChild className="w-full">
-                        <Link href={item.href}>
-                          Acessar {item.title}
-                        </Link>
-                      </Button>
+                      <div className="mt-auto">
+                        <Button asChild className="w-full">
+                          <Link href={item.href}>
+                            Acessar {item.title}
+                          </Link>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 )
@@ -166,20 +168,22 @@ export default function DemoNavigationPage() {
 
           {/* Dashboard Navigation */}
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-foreground mb-6">Dashboards</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">Painéis</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {dashboardItems.map((item, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="hover:shadow-lg transition-shadow flex flex-col">
                   <CardHeader>
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex-1 flex flex-col">
                     <p className="text-foreground/70 mb-4">{item.description}</p>
-                    <Button asChild variant="outline" className="w-full">
-                      <Link href={item.href}>
-                        Acessar Dashboard
-                      </Link>
-                    </Button>
+                    <div className="mt-auto">
+                      <Button asChild variant="outline" className="w-full">
+                        <Link href={item.href}>
+                          Acessar Painel
+                        </Link>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -191,17 +195,19 @@ export default function DemoNavigationPage() {
             <h2 className="text-2xl font-bold text-foreground mb-6">Autenticação</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {authItems.map((item, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="hover:shadow-lg transition-shadow flex flex-col">
                   <CardHeader>
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex-1 flex flex-col">
                     <p className="text-foreground/70 mb-4">{item.description}</p>
-                    <Button asChild variant="outline" className="w-full">
-                      <Link href={item.href}>
-                        Acessar {item.title}
-                      </Link>
-                    </Button>
+                    <div className="mt-auto">
+                      <Button asChild variant="outline" className="w-full">
+                        <Link href={item.href}>
+                          Acessar {item.title}
+                        </Link>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}

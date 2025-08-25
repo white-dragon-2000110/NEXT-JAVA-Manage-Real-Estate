@@ -145,7 +145,7 @@ export function SearchResults() {
       {/* Results Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {mockProperties.map((property) => (
-          <Card key={property.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg">
+          <Card key={property.id} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg flex flex-col">
             <div className="relative">
               <div className="w-full h-48 bg-muted rounded-t-lg flex items-center justify-center">
                 <div className="text-foreground/40 text-sm">Imagem do Imóvel</div>
@@ -198,7 +198,7 @@ export function SearchResults() {
               </div>
             </CardHeader>
 
-            <CardContent className="pt-0">
+            <CardContent className="pt-0 flex-1 flex flex-col">
               <div className="text-2xl font-bold text-primary mb-4">
                 {formatPrice(property.price)}
               </div>
@@ -222,11 +222,13 @@ export function SearchResults() {
                 </div>
               </div>
 
-              <Button className="w-full" asChild>
-                <Link href={`/property/${property.id}`}>
-                  Ver Detalhes
-                </Link>
-              </Button>
+              <div className="mt-auto">
+                <Button className="w-full" asChild>
+                  <Link href={`/property/${property.id}`}>
+                    Ver Detalhes
+                  </Link>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         ))}

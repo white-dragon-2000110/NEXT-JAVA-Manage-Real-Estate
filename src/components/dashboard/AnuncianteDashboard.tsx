@@ -7,11 +7,14 @@ import { GerenciarAnuncios } from './GerenciarAnuncios'
 import { LeadsRecebidos } from './LeadsRecebidos'
 import { AgendamentosVisitas } from './AgendamentosVisitas'
 import { RelatoriosVisitas } from './RelatoriosVisitas'
+import { Button } from '@/components/ui/button'
+import { Menu, X } from 'lucide-react'
 
 type DashboardSection = 'criar' | 'gerenciar' | 'leads' | 'agendamentos' | 'relatorios'
 
 export function AnuncianteDashboard() {
   const [activeSection, setActiveSection] = useState<DashboardSection>('criar')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const renderContent = () => {
     switch (activeSection) {
@@ -32,19 +35,42 @@ export function AnuncianteDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden p-4 border-b border-border">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="h-10 w-10 p-0"
+          >
+            {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+
         {/* Sidebar */}
-        <AnuncianteSidebar 
-          activeSection={activeSection} 
-          onSectionChange={setActiveSection} 
-        />
-        
+        <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block`}>
+          <AnuncianteSidebar 
+            activeSection={activeSection} 
+            onSectionChange={setActiveSection}
+            onMobileClose={() => setSidebarOpen(false)}
+          />
+        </div>
+
         {/* Main Content */}
-        <div className="flex-1 ml-64">
-          <div className="p-6">
+        <div className="flex-1 lg:ml-64">
+          <div className="p-4 lg:p-6">
             {renderContent()}
           </div>
         </div>
+
+        {/* Mobile Overlay */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
       </div>
     </div>
   )

@@ -41,7 +41,7 @@ A modern, responsive real estate platform built with Next.js 15, TypeScript, and
 src/
 ├── app/                    # Next.js App Router pages
 │   ├── auth/              # Authentication pages
-│   ├── dashboard/         # User dashboards
+│   ├── dashboard/         # Painéis de usuário
 │   ├── property/          # Property detail pages
 │   ├── search/            # Search results
 │   └── pricing/           # Subscription plans
