@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -128,6 +128,34 @@ export function HistoricoBuscas() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
   const [sortBy, setSortBy] = useState('recent')
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null)
+
+  // Global mouse up event handler for button release
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null)
+        // Reset button styles
+        const button = document.querySelector(`[data-button="${pressedButtonId}"]`) as HTMLElement
+        if (button) {
+          if (pressedButtonId.startsWith('salva-') || pressedButtonId === 'atualizar-historico') {
+            button.style.backgroundColor = '#1A53E0'
+            button.style.borderColor = '#1A53E0'
+          } else if (pressedButtonId === 'limpar-historico' || pressedButtonId.startsWith('delete-')) {
+            button.style.backgroundColor = '#f43f5e'
+            button.style.color = 'white'
+          } else {
+            button.style.backgroundColor = '#1A53E0'
+            button.style.borderColor = '#1A53E0'
+          }
+          button.style.transform = 'scale(1)'
+        }
+      }
+    }
+
+    document.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [pressedButtonId])
 
   const filteredHistory = mockSearchHistory.filter(history => {
     const matchesSearch = history.query.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -221,11 +249,85 @@ export function HistoricoBuscas() {
           <p className="text-foreground/60">Acompanhe suas pesquisas anteriores de imóveis</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={clearAllHistory} className="cursor-pointer">
+          <Button
+            variant="outline"
+            onClick={clearAllHistory}
+            className="cursor-pointer"
+            data-button="limpar-historico"
+            style={{
+              backgroundColor: '#f43f5e',
+              borderColor: '#f43f5e',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              if (pressedButtonId !== 'limpar-historico') {
+                e.currentTarget.style.backgroundColor = '#e11d48';
+                e.currentTarget.style.color = 'white';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (pressedButtonId !== 'limpar-historico') {
+                e.currentTarget.style.backgroundColor = '#f43f5e';
+                e.currentTarget.style.color = 'white';
+              }
+            }}
+            onMouseDown={(e) => {
+              setPressedButtonId('limpar-historico');
+              e.currentTarget.style.backgroundColor = '#e11d48';
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onMouseUp={(e) => {
+              if (pressedButtonId === 'limpar-historico') {
+                setPressedButtonId(null);
+                e.currentTarget.style.backgroundColor = '#f43f5e';
+                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.transform = 'scale(1)';
+              }
+            }}
+          >
             <Trash2 className="h-4 w-4 mr-2" />
             Limpar Histórico
           </Button>
-          <Button>
+          <Button
+            className="cursor-pointer"
+            data-button="atualizar-historico"
+            style={{
+              backgroundColor: '#1A53E0',
+              borderColor: '#1A53E0',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              if (pressedButtonId !== 'atualizar-historico') {
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (pressedButtonId !== 'atualizar-historico') {
+                e.currentTarget.style.backgroundColor = '#1A53E0';
+                e.currentTarget.style.borderColor = '#1A53E0';
+              }
+            }}
+            onMouseDown={(e) => {
+              setPressedButtonId('atualizar-historico');
+              e.currentTarget.style.backgroundColor = '#0a2a8a';
+              e.currentTarget.style.borderColor = '#0a2a8a';
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onMouseUp={(e) => {
+              if (pressedButtonId === 'atualizar-historico') {
+                setPressedButtonId(null);
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+                e.currentTarget.style.transform = 'scale(1)';
+              }
+            }}
+          >
             <RefreshCw className="h-4 w-4 mr-2" />
             Atualizar
           </Button>
@@ -396,10 +498,44 @@ export function HistoricoBuscas() {
                     Repetir
                   </Button>
                   <Button
-                    variant={history.isSaved ? "default" : "outline"}
+                    variant="outline"
                     size="sm"
                     onClick={() => saveSearch(history.id)}
                     className="w-full cursor-pointer"
+                    data-button={`salva-${history.id}`}
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== `salva-${history.id}`) {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== `salva-${history.id}`) {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId(`salva-${history.id}`);
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === `salva-${history.id}`) {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
                   >
                     <Eye className="h-4 w-4 mr-2" />
                     {history.isSaved ? 'Salva' : 'Salvar'}
@@ -408,7 +544,41 @@ export function HistoricoBuscas() {
                     variant="ghost"
                     size="sm"
                     onClick={() => deleteSearch(history.id)}
-                    className="text-red-600 hover:text-red-700 cursor-pointer"
+                    className="cursor-pointer"
+                    data-button={`delete-${history.id}`}
+                    style={{
+                      backgroundColor: '#f43f5e',
+                      borderColor: '#f43f5e',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== `delete-${history.id}`) {
+                        e.currentTarget.style.backgroundColor = '#e11d48';
+                        e.currentTarget.style.color = 'white';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== `delete-${history.id}`) {
+                        e.currentTarget.style.backgroundColor = '#f43f5e';
+                        e.currentTarget.style.color = 'white';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId(`delete-${history.id}`);
+                      e.currentTarget.style.backgroundColor = '#be123c';
+                      e.currentTarget.style.color = 'white';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === `delete-${history.id}`) {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#e11d48';
+                        e.currentTarget.style.color = 'white';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
