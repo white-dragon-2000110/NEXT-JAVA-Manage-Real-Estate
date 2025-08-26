@@ -176,115 +176,85 @@ export default function PropertiesPage() {
     <RootLayout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-          {/* Background with gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50" />
-
-          {/* Floating geometric shapes */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-pink-200/30 to-red-200/30 rounded-full blur-3xl animate-pulse delay-1000" />
-            <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-r from-green-200/30 to-blue-200/30 rounded-full blur-3xl animate-pulse delay-2000" />
-            <div className="absolute bottom-40 right-1/3 w-28 h-28 bg-gradient-to-r from-purple-200/30 to-pink-200/30 rounded-full blur-3xl animate-pulse delay-1500" />
-          </div>
-
+        <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden flex-col shadow-[inset_0_-20px_40px_-20px_rgba(0,0,0,0.15)]">
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Main Heading */}
-            <div className="mb-8">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1A53E0] leading-tight">
+            <div className="mb-8 mt-16">
+              <h1 className="text-xl md:text-4xl font-bold text-[#1A53E0] leading-tight">
                 Bom dia, Luciana!
               </h1>
-              <p className="text-xl md:text-2xl text-[#1A53E0] max-w-4xl mx-auto leading-relaxed">
-                Que tipo de imóvel está procurando hoje?
+              <p className="text-xl md:text-4xl font-bold text-[#1A53E0] max-w-4xl mx-auto leading-relaxed">
+                Que tipo de imóvel está procurando?
               </p>
             </div>
+          </div>
+          {/* Search Interface */}
+          <div className="w-full max-w-6xl mx-auto">
+            <div className="flex items-center gap-0">
+              {/* Search Input */}
+              <div className="flex-1 relative">
+                <Input
+                  placeholder="Digite o que precisa: bairro, cidade ou tipo de imóvel"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  style={{ fontSize: '20px' }}
+                  className="h-16 text-5xl pl-6 pr-20 border-2 border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-3xl placeholder:text-xl placeholder:text-gray-500"
+                />
+              </div>
+            </div>
 
-            {/* Search Interface */}
-            <div className="max-w-5xl mx-auto">
-              <Card className="p-8 shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-                <div className="flex flex-col lg:flex-row gap-6">
-                  {/* Search Input */}
-                  <div className="flex-1 relative">
-                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                      <Search className="h-6 w-6 text-foreground/40" />
-                    </div>
-                    <Input
-                      placeholder="Buscar por localização, tipo, características ou preço..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="h-16 text-lg pl-12 pr-4 border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300"
-                    />
-                  </div>
+            {/* Featured Properties Section */}
+            <div className="mt-10 mb-10">
+              <h2 className="text-xl md:text-2xl text-[#1A53E0] font-bold mb-4">
+                Mais vistos hoje
+              </h2>
 
-                  {/* Search Button */}
-                  <Button
-                    size="lg"
-                    className="h-16 px-12 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-                    data-button="buscar-imoveis-hero"
-                    style={{
-                      backgroundColor: '#1A53E0',
-                      borderColor: '#1A53E0',
-                      color: 'white',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease-in-out'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (pressedButtonId !== 'buscar-imoveis-hero') {
-                        e.currentTarget.style.backgroundColor = '#0f3bb8';
-                        e.currentTarget.style.borderColor = '#0f3bb8';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (pressedButtonId !== 'buscar-imoveis-hero') {
-                        e.currentTarget.style.backgroundColor = '#1A53E0';
-                        e.currentTarget.style.borderColor = '#1A53E0';
-                      }
-                    }}
-                    onMouseDown={(e) => {
-                      setPressedButtonId('buscar-imoveis-hero');
-                      e.currentTarget.style.backgroundColor = '#0a2a8a';
-                      e.currentTarget.style.borderColor = '#0a2a8a';
-                      e.currentTarget.style.transform = 'scale(0.98)';
-                    }}
-                    onMouseUp={(e) => {
-                      if (pressedButtonId === 'buscar-imoveis-hero') {
-                        setPressedButtonId(null);
-                        e.currentTarget.style.backgroundColor = '#0f3bb8';
-                        e.currentTarget.style.borderColor = '#0f3bb8';
-                        e.currentTarget.style.transform = 'scale(1)';
-                      }
-                    }}
-                    onClick={() => { }}
-                  >
-                    <Search className="h-5 w-5 mr-2" />
-                    Buscar Imóveis
-                  </Button>
-                </div>
+              {/* Featured Properties Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                {mockProperties.slice(0, 4).map((property) => (
+                  <FeaturedPropertyCard key={property.id} property={property} />
+                ))}
+              </div>
 
-                {/* Quick Stats */}
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                    <div className="group">
-                      <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
-                        50,000+
-                      </div>
-                      <div className="text-foreground/60">Imóveis Disponíveis</div>
-                    </div>
-                    <div className="group">
-                      <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
-                        150+
-                      </div>
-                      <div className="text-foreground/60">Cidades Cobertas</div>
-                    </div>
-                    <div className="group">
-                      <div className="text-3xl font-bold text-primary mb-2 group-hover:scale-110 transition-transform duration-300">
-                        98%
-                      </div>
-                      <div className="text-foreground/60">Clientes Satisfeitos</div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              {/* View All Properties Button */}
+              <div className="text-center">
+                <Button
+                  size="lg"
+                  className="px-8 py-4 text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  style={{
+                    backgroundColor: '#1A53E0',
+                    borderColor: '#1A53E0',
+                    color: 'white',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease-in-out'
+                  }}
+                  onClick={() => window.location.href = '/properties'}
+                >
+                  Ver Todos os Imóveis
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className='w-full flex justify-center mb-12'>
+          <div className="mt-16 flex flex-row justify-between items-center gap-8 text-center w-[80%]">
+            <div className="flex-1">
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">50,000+</div>
+              <div className="text-foreground/70">Imóveis Disponíveis</div>
+            </div>
+            <div className="flex-1">
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">25,000+</div>
+              <div className="text-foreground/70">Clientes Satisfeitos</div>
+            </div>
+            <div className="flex-1">
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">500+</div>
+              <div className="text-foreground/70">Agentes Parceiros</div>
+            </div>
+            <div className="flex-1">
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">95%</div>
+              <div className="text-foreground/70">Taxa de Satisfação</div>
             </div>
           </div>
         </div>
@@ -1050,6 +1020,101 @@ function PropertyListCard({
           </div>
         </div>
       </div>
+    </Card>
+  )
+}
+
+function FeaturedPropertyCard({ property }: { property: Property }) {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price)
+  }
+
+  return (
+    <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white">
+      {/* Image Container */}
+      <div className="relative h-48 overflow-hidden">
+        <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+              <Home className="h-6 w-6 text-white" />
+            </div>
+            <div className="text-foreground/60 text-xs">Imagem do Imóvel</div>
+          </div>
+        </div>
+
+        {/* Featured Badge */}
+        {property.featured && (
+          <Badge className="absolute top-2 right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg text-xs">
+            ⭐ Destaque
+          </Badge>
+        )}
+
+        {/* Type Badge */}
+        <Badge variant="secondary" className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm text-foreground text-xs">
+          {property.type}
+        </Badge>
+      </div>
+
+      {/* Content */}
+      <CardHeader className="pb-3 pt-4">
+        <div className="space-y-2">
+          <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+            {property.title}
+          </h3>
+          <div className="flex items-center text-foreground/60 text-xs">
+            <MapPin className="h-3 w-3 mr-1 text-primary" />
+            <span className="line-clamp-1">{property.location}</span>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="pt-0 pb-4">
+        {/* Price */}
+        <div className="text-lg font-bold text-primary mb-3 group-hover:scale-105 transition-transform duration-300">
+          {formatPrice(property.price)}
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <div className="flex items-center text-xs text-foreground/70 group-hover:text-foreground transition-colors duration-300">
+            <Bed className="h-3 w-3 mr-1 text-primary" />
+            {property.bedrooms} quartos
+          </div>
+          <div className="flex items-center text-xs text-foreground/70 group-hover:text-foreground transition-colors duration-300">
+            <Bath className="h-3 w-3 mr-1 text-primary" />
+            {property.bathrooms} banheiros
+          </div>
+          <div className="flex items-center text-xs text-foreground/70 group-hover:text-foreground transition-colors duration-300">
+            <Square className="h-3 w-3 mr-1 text-primary" />
+            {property.area}m²
+          </div>
+          <div className="flex items-center text-xs text-foreground/70 group-hover:text-foreground transition-colors duration-300">
+            <Car className="h-3 w-3 mr-1 text-primary" />
+            {property.parking} vagas
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <Button
+          className="w-full text-sm py-2 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+          style={{
+            backgroundColor: '#1A53E0',
+            borderColor: '#1A53E0',
+            color: 'white',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease-in-out'
+          }}
+          onClick={() => window.location.href = `/property/${property.id}`}
+        >
+          <Eye className="h-3 w-3 mr-2" />
+          Ver Detalhes
+        </Button>
+      </CardContent>
     </Card>
   )
 } 

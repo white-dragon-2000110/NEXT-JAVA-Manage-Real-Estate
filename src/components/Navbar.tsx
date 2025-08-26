@@ -36,8 +36,8 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/properties" className="flex items-center space-x-2">
-              <Building className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">RealEstatePro</span>
+              <img src="/logo.png" alt="logo" className="h-12 w-8" />
+              <span className="ml-2 text-3xl font-bold text-foreground">Gênio imob</span>
             </Link>
           </div>
 
