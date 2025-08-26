@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -94,6 +94,31 @@ const mockComparisonProperties: ComparisonProperty[] = [
 export function Comparacoes() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedProperties, setSelectedProperties] = useState<ComparisonProperty[]>(mockComparisonProperties)
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null)
+
+  // Global mouse up event handler for button release
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null)
+        // Reset button styles
+        const button = document.querySelector(`[data-button="${pressedButtonId}"]`) as HTMLElement
+        if (button) {
+          if (pressedButtonId === 'buscar-comparacao' || pressedButtonId.startsWith('ver-')) {
+            button.style.backgroundColor = '#1A53E0'
+            button.style.borderColor = '#1A53E0'
+          } else {
+            button.style.backgroundColor = '#1A53E0'
+            button.style.borderColor = '#1A53E0'
+          }
+          button.style.transform = 'scale(1)'
+        }
+      }
+    }
+
+    document.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [pressedButtonId])
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -155,14 +180,47 @@ export function Comparacoes() {
           <p className="text-foreground/60">Compare diferentes imóveis para tomar a melhor decisão</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addToComparison} className="cursor-pointer">
+          <Button 
+            onClick={addToComparison} 
+            className="cursor-pointer"
+            data-button="adicionar-comparacao"
+            style={{ 
+              backgroundColor: '#1A53E0', 
+              borderColor: '#1A53E0',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#0f3bb8';
+              e.currentTarget.style.borderColor = '#0f3bb8';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#1A53E0';
+              e.currentTarget.style.borderColor = '#1A53E0';
+            }}
+            onMouseDown={(e) => {
+              setPressedButtonId('adicionar-comparacao');
+              e.currentTarget.style.backgroundColor = '#0a2a8a';
+              e.currentTarget.style.borderColor = '#0a2a8a';
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onMouseUp={(e) => {
+              if (pressedButtonId === 'adicionar-comparacao') {
+                setPressedButtonId(null);
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+                e.currentTarget.style.transform = 'scale(1)';
+              }
+            }}
+          >
             <Plus className="h-4 w-4 mr-2" />
             Adicionar à Comparação
           </Button>
-          <Button onClick={shareComparison} className="cursor-pointer">
+          {/* <Button onClick={shareComparison} className="cursor-pointer">
             <Share2 className="h-4 w-4 mr-2" />
             Compartilhar
-          </Button>
+          </Button> */}
         </div>
       </div>
 
@@ -182,10 +240,46 @@ export function Comparacoes() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1"
             />
-            <Button>
-              <Search className="h-4 w-4 mr-2" />
-              Buscar
-            </Button>
+                         <Button
+               className="h-12 text-lg font-semibold cursor-pointer"
+               data-button="buscar-comparacao"
+               style={{
+                 backgroundColor: '#1A53E0',
+                 borderColor: '#1A53E0',
+                 color: 'white',
+                 cursor: 'pointer',
+                 transition: 'all 0.2s ease-in-out'
+               }}
+               onMouseEnter={(e) => {
+                 if (pressedButtonId !== 'buscar-comparacao') {
+                   e.currentTarget.style.backgroundColor = '#0f3bb8';
+                   e.currentTarget.style.borderColor = '#0f3bb8';
+                 }
+               }}
+               onMouseLeave={(e) => {
+                 if (pressedButtonId !== 'buscar-comparacao') {
+                   e.currentTarget.style.backgroundColor = '#1A53E0';
+                   e.currentTarget.style.borderColor = '#1A53E0';
+                 }
+               }}
+               onMouseDown={(e) => {
+                 setPressedButtonId('buscar-comparacao');
+                 e.currentTarget.style.backgroundColor = '#0a2a8a';
+                 e.currentTarget.style.borderColor = '#0a2a8a';
+                 e.currentTarget.style.transform = 'scale(0.98)';
+               }}
+               onMouseUp={(e) => {
+                 if (pressedButtonId === 'buscar-comparacao') {
+                   setPressedButtonId(null);
+                   e.currentTarget.style.backgroundColor = '#0f3bb8';
+                   e.currentTarget.style.borderColor = '#0f3bb8';
+                   e.currentTarget.style.transform = 'scale(1)';
+                 }
+               }}
+             >
+               <Search className="h-4 w-4 mr-2" />
+               Buscar
+             </Button>
           </div>
         </CardContent>
       </Card>
@@ -380,14 +474,72 @@ export function Comparacoes() {
                     {selectedProperties.map((property) => (
                       <td key={property.id} className="text-center p-3">
                         <div className="flex gap-2 justify-center">
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4 mr-2" />
-                            Ver
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Heart className="h-4 w-4 mr-2" />
-                            Favorito
-                          </Button>
+                                                     <Button
+                             variant="outline"
+                             size="sm"
+                             className="cursor-pointer"
+                             data-button={`ver-${property.id}`}
+                             style={{
+                               backgroundColor: '#1A53E0',
+                               borderColor: '#1A53E0',
+                               color: 'white',
+                               cursor: 'pointer',
+                               transition: 'all 0.2s ease-in-out'
+                             }}
+                             onMouseEnter={(e) => {
+                               if (pressedButtonId !== `ver-${property.id}`) {
+                                 e.currentTarget.style.backgroundColor = '#0f3bb8';
+                                 e.currentTarget.style.borderColor = '#0f3bb8';
+                               }
+                             }}
+                             onMouseLeave={(e) => {
+                               if (pressedButtonId !== `ver-${property.id}`) {
+                                 e.currentTarget.style.backgroundColor = '#1A53E0';
+                                 e.currentTarget.style.borderColor = '#1A53E0';
+                               }
+                             }}
+                             onMouseDown={(e) => {
+                               setPressedButtonId(`ver-${property.id}`);
+                               e.currentTarget.style.backgroundColor = '#0a2a8a';
+                               e.currentTarget.style.borderColor = '#0a2a8a';
+                               e.currentTarget.style.transform = 'scale(0.98)';
+                             }}
+                             onMouseUp={(e) => {
+                               if (pressedButtonId === `ver-${property.id}`) {
+                                 setPressedButtonId(null);
+                                 e.currentTarget.style.backgroundColor = '#0f3bb8';
+                                 e.currentTarget.style.borderColor = '#0f3bb8';
+                                 e.currentTarget.style.transform = 'scale(1)';
+                               }
+                             }}
+                           >
+                             <Eye className="h-4 w-4 mr-2" />
+                             Ver
+                           </Button>
+                                                     <Button
+                             variant="outline"
+                             size="sm"
+                             className="cursor-pointer"
+                             data-button={`favorito-${property.id}`}
+                             style={{
+                               backgroundColor: 'transparent',
+                               borderColor: '#f43f5e',
+                               color: '#f43f5e',
+                               cursor: 'pointer',
+                               transition: 'all 0.3s ease-in-out'
+                             }}
+                             onMouseEnter={(e) => {
+                               e.currentTarget.style.backgroundColor = '#f43f5e';
+                               e.currentTarget.style.color = 'white';
+                             }}
+                             onMouseLeave={(e) => {
+                               e.currentTarget.style.backgroundColor = 'transparent';
+                               e.currentTarget.style.color = '#f43f5e';
+                             }}
+                           >
+                             <Heart className="h-4 w-4 mr-2" />
+                             Favorito
+                           </Button>
                         </div>
                       </td>
                     ))}

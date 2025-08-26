@@ -112,7 +112,7 @@ export function ChatWidget() {
           size="lg"
           className="h-14 w-14 rounded-full shadow-lg cursor-pointer"
           style={{
-            background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+            background: 'linear-gradient(to right, #4ade80, #22c55e, #16a34a)',
             backgroundSize: '200% 200%',
             animation: 'gradient 3s ease infinite'
           }}
@@ -128,7 +128,7 @@ export function ChatWidget() {
       <Card className="w-80 h-96 shadow-2xl border-0 bg-background py-0">
         <CardHeader className="pb-3 pt-3 rounded-t-lg text-white"
           style={{
-            background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+            background: 'linear-gradient(to right, #4ade80, #22c55e, #16a34a)',
             backgroundSize: '200% 200%',
             animation: 'gradient 3s ease infinite'
           }}
@@ -226,7 +226,7 @@ export function ChatWidget() {
                     disabled={!inputValue.trim() || isTyping}
                     className="px-3 cursor-pointer"
                     style={{
-                      background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                      background: 'linear-gradient(to right, #4ade80, #22c55e, #16a34a)',
                       backgroundSize: '200% 200%',
                       animation: 'gradient 3s ease infinite',
                       border: 'none',

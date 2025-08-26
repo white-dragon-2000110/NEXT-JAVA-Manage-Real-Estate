@@ -184,16 +184,14 @@ export default function PricingPage() {
             </span>
             <button
               onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'yearly' : 'monthly')}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 cursor-pointer ${
-                billingCycle === 'yearly' 
-                  ? 'bg-gradient-to-r from-purple-400 via-purple-600 to-blue-500 animate-gradient' 
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 cursor-pointer ${billingCycle === 'yearly'
+                  ? 'bg-gradient-to-r from-purple-400 via-purple-600 to-blue-500 animate-gradient'
                   : 'bg-blue-600'
-              }`}
+                }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${
-                  billingCycle === 'yearly' ? 'translate-x-6' : 'translate-x-1'
-                }`}
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${billingCycle === 'yearly' ? 'translate-x-6' : 'translate-x-1'
+                  }`}
               />
             </button>
             <span className={`text-sm ${billingCycle === 'yearly' ? 'text-foreground' : 'text-foreground/60'}`}>
@@ -218,10 +216,10 @@ export default function PricingPage() {
                 <Card
                   key={plan.id}
                   className={`relative transition-all duration-300 hover:scale-105 flex flex-col ${plan.popular
-                      ? 'ring-0 shadow-2xl'
-                      : 'hover:shadow-xl'
+                    ? 'ring-0 shadow-2xl'
+                    : 'hover:shadow-xl'
                     }`}
-                    style={{border: plan.popular ? 'none' : undefined}}
+                  style={{ border: plan.popular ? 'none' : undefined }}
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-30">
@@ -231,12 +229,12 @@ export default function PricingPage() {
                     </div>
                   )}
 
-                  {plan.popular && (
+                                    {plan.popular ? (
                     <div className="absolute inset-0 rounded-xl p-[4px] bg-gradient-to-r from-purple-400 via-purple-600 to-blue-500 animate-gradient">
                       <div className="h-full w-full bg-background rounded-lg">
-                        <div className="p-6 h-full">
+                        <div className="p-6 h-full flex flex-col">
                           {/* Card Header */}
-                          <div className="text-center pb-6">
+                          <CardHeader className="text-center pb-6">
                             <div className="flex justify-center mb-4">
                               <div className={`p-3 rounded-full bg-muted ${plan.color.replace('text-', 'text-')}`}>
                                 <Icon className="h-8 w-8" />
@@ -248,10 +246,10 @@ export default function PricingPage() {
                             <p className="text-foreground/60 mt-2">
                               {plan.description}
                             </p>
-                          </div>
+                          </CardHeader>
 
                           {/* Card Content */}
-                          <div className="space-y-6 flex-1 flex flex-col">
+                          <CardContent className="space-y-6 flex-1 flex flex-col">
                             {/* Pricing */}
                             <div className="text-center">
                               <div className="flex items-baseline justify-center">
@@ -290,19 +288,22 @@ export default function PricingPage() {
                                 onClick={() => handleSubscribe(plan.id)}
                                 data-button={plan.id}
                                 style={{
-                                  backgroundColor: plan.id === 'premium' ? 'transparent' : '#1A53E0',
-                                  borderColor: plan.id === 'premium' ? 'transparent' : '#1A53E0',
+                                  backgroundColor: plan.id === 'premium' ? 'transparent' : (plan.id === 'free' || plan.id === 'pro' ? '#2563eb' : '#1A53E0'),
+                                  borderColor: plan.id === 'premium' ? 'transparent' : (plan.id === 'free' || plan.id === 'pro' ? '#2563eb' : '#1A53E0'),
                                   color: 'white',
                                   cursor: 'pointer',
                                   transition: 'all 0.2s ease-in-out',
                                   background: plan.id === 'premium' ? 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)' : undefined,
-                                  backgroundSize: plan.id === 'premium' ? '150% 150%' : undefined,
+                                  backgroundSize: plan.id === 'premium' ? '200% 200%' : undefined,
                                   animation: plan.id === 'premium' ? 'gradient 3s ease infinite' : undefined
                                 }}
                                 onMouseEnter={(e) => {
                                   if (pressedButtonId !== plan.id) {
                                     if (plan.id === 'premium') {
                                       e.currentTarget.style.background = 'linear-gradient(to right, #9333ea, #6d28d9, #2563eb)';
+                                    } else if (plan.id === 'free' || plan.id === 'pro') {
+                                      e.currentTarget.style.backgroundColor = '#1d4ed8';
+                                      e.currentTarget.style.borderColor = '#1d4ed8';
                                     } else {
                                       e.currentTarget.style.backgroundColor = '#0f3bb8';
                                       e.currentTarget.style.borderColor = '#0f3bb8';
@@ -313,6 +314,9 @@ export default function PricingPage() {
                                   if (pressedButtonId !== plan.id) {
                                     if (plan.id === 'premium') {
                                       e.currentTarget.style.background = 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)';
+                                    } else if (plan.id === 'free' || plan.id === 'pro') {
+                                      e.currentTarget.style.backgroundColor = '#2563eb';
+                                      e.currentTarget.style.borderColor = '#2563eb';
                                     } else {
                                       e.currentTarget.style.backgroundColor = '#1A53E0';
                                       e.currentTarget.style.borderColor = '#1A53E0';
@@ -323,6 +327,9 @@ export default function PricingPage() {
                                   setPressedButtonId(plan.id);
                                   if (plan.id === 'premium') {
                                     e.currentTarget.style.background = 'linear-gradient(to right, #7c3aed, #5b21b6, #1d4ed8)';
+                                  } else if (plan.id === 'free' || plan.id === 'pro') {
+                                    e.currentTarget.style.backgroundColor = '#1e40af';
+                                    e.currentTarget.style.borderColor = '#1e40af';
                                   } else {
                                     e.currentTarget.style.backgroundColor = '#0a2a8a';
                                     e.currentTarget.style.borderColor = '#0a2a8a';
@@ -334,6 +341,9 @@ export default function PricingPage() {
                                     setPressedButtonId(null);
                                     if (plan.id === 'premium') {
                                       e.currentTarget.style.background = 'linear-gradient(to right, #9333ea, #6d28d9, #2563eb)';
+                                    } else if (plan.id === 'free' || plan.id === 'pro') {
+                                      e.currentTarget.style.backgroundColor = '#1d4ed8';
+                                      e.currentTarget.style.borderColor = '#1d4ed8';
                                     } else {
                                       e.currentTarget.style.backgroundColor = '#0f3bb8';
                                       e.currentTarget.style.borderColor = '#0f3bb8';
@@ -345,13 +355,11 @@ export default function PricingPage() {
                                 {plan.buttonText}
                               </Button>
                             </div>
-                          </div>
+                          </CardContent>
                         </div>
                       </div>
                     </div>
-                  )}
-
-                  {!plan.popular && (
+                  ) : (
                     <>
                       {/* Card Header */}
                       <CardHeader className="text-center pb-6">
@@ -408,8 +416,8 @@ export default function PricingPage() {
                             onClick={() => handleSubscribe(plan.id)}
                             data-button={plan.id}
                             style={{
-                              backgroundColor: plan.id === 'premium' ? 'transparent' : '#1A53E0',
-                              borderColor: plan.id === 'premium' ? 'transparent' : '#1A53E0',
+                              backgroundColor: plan.id === 'premium' ? 'transparent' : (plan.id === 'free' || plan.id === 'pro' ? '#2563eb' : '#1A53E0'),
+                              borderColor: plan.id === 'premium' ? 'transparent' : (plan.id === 'free' || plan.id === 'pro' ? '#2563eb' : '#1A53E0'),
                               color: 'white',
                               cursor: 'pointer',
                               transition: 'all 0.2s ease-in-out',
@@ -421,6 +429,9 @@ export default function PricingPage() {
                               if (pressedButtonId !== plan.id) {
                                 if (plan.id === 'premium') {
                                   e.currentTarget.style.background = 'linear-gradient(to right, #e11d48, #db2777, #e11d48)';
+                                } else if (plan.id === 'free' || plan.id === 'pro') {
+                                  e.currentTarget.style.backgroundColor = '#1d4ed8';
+                                  e.currentTarget.style.borderColor = '#1d4ed8';
                                 } else {
                                   e.currentTarget.style.backgroundColor = '#0f3bb8';
                                   e.currentTarget.style.borderColor = '#0f3bb8';
@@ -431,6 +442,9 @@ export default function PricingPage() {
                               if (pressedButtonId !== plan.id) {
                                 if (plan.id === 'premium') {
                                   e.currentTarget.style.background = 'linear-gradient(to right, #f43f5e, #ec4899, #f43f5e)';
+                                } else if (plan.id === 'free' || plan.id === 'pro') {
+                                  e.currentTarget.style.backgroundColor = '#2563eb';
+                                  e.currentTarget.style.borderColor = '#2563eb';
                                 } else {
                                   e.currentTarget.style.backgroundColor = '#1A53E0';
                                   e.currentTarget.style.borderColor = '#1A53E0';
@@ -441,6 +455,9 @@ export default function PricingPage() {
                               setPressedButtonId(plan.id);
                               if (plan.id === 'premium') {
                                 e.currentTarget.style.background = 'linear-gradient(to right, #be123c, #be1857, #be123c)';
+                              } else if (plan.id === 'free' || plan.id === 'pro') {
+                                e.currentTarget.style.backgroundColor = '#1e40af';
+                                e.currentTarget.style.borderColor = '#1e40af';
                               } else {
                                 e.currentTarget.style.backgroundColor = '#0a2a8a';
                                 e.currentTarget.style.borderColor = '#0a2a8a';
@@ -452,6 +469,9 @@ export default function PricingPage() {
                                 setPressedButtonId(null);
                                 if (plan.id === 'premium') {
                                   e.currentTarget.style.background = 'linear-gradient(to right, #e11d48, #db2777, #e11d48)';
+                                } else if (plan.id === 'free' || plan.id === 'pro') {
+                                  e.currentTarget.style.backgroundColor = '#1d4ed8';
+                                  e.currentTarget.style.borderColor = '#1d4ed8';
                                 } else {
                                   e.currentTarget.style.backgroundColor = '#0f3bb8';
                                   e.currentTarget.style.borderColor = '#0f3bb8';
@@ -482,7 +502,7 @@ export default function PricingPage() {
               Tudo o que você precisa saber sobre nossos planos de preços
             </p>
             {/* Test button to manually trigger animations */}
-            <button 
+            <button
               onClick={() => setFaqVisible({ card1: true, card2: true, card3: true })}
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
@@ -491,7 +511,7 @@ export default function PricingPage() {
           </div>
 
           <div className="space-y-6">
-            <Card 
+            <Card
               className={faqVisible.card1 ? 'faq-card-visible' : 'faq-card-hidden'}
               data-faq-card="card1"
             >
@@ -505,7 +525,7 @@ export default function PricingPage() {
               </CardContent>
             </Card>
 
-            <Card 
+            <Card
               className={faqVisible.card2 ? 'faq-card-visible' : 'faq-card-hidden-left'}
               data-faq-card="card2"
             >
@@ -519,7 +539,7 @@ export default function PricingPage() {
               </CardContent>
             </Card>
 
-            <Card 
+            <Card
               className={faqVisible.card3 ? 'faq-card-visible' : 'faq-card-hidden'}
               data-faq-card="card3"
             >

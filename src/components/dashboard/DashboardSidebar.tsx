@@ -117,9 +117,14 @@ export function DashboardSidebar({ activeSection, onSectionChange }: DashboardSi
                   onClick={() => onSectionChange(item.id as any)}
                   className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors cursor-pointer ${
                     isActive 
-                      ? 'bg-primary text-primary-foreground' 
+                      ? 'text-white' 
                       : 'hover:bg-muted text-foreground'
                   }`}
+                  style={isActive ? {
+                    background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                    backgroundSize: '200% 200%',
+                    animation: 'gradient 3s ease infinite'
+                  } : {}}
                 >
                   <Icon className="h-5 w-5 flex-shrink-0" />
                   {!isCollapsed && (
@@ -131,7 +136,7 @@ export function DashboardSidebar({ activeSection, onSectionChange }: DashboardSi
                         </span>
                       </div>
                       <p className={`text-xs ${
-                        isActive ? 'text-primary-foreground/70' : 'text-foreground/60'
+                        isActive ? 'text-white/70' : 'text-foreground/60'
                       }`}>
                         {item.description}
                       </p>
