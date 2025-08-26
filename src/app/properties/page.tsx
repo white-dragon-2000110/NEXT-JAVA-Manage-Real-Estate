@@ -310,7 +310,7 @@ export default function PropertiesPage() {
        
 
         {/* Call to Action Section */}
-        <div className="py-20 bg-gradient-to-r from-primary to-purple-600 text-white">
+        {/* <div className="py-20 bg-gradient-to-r from-primary to-purple-600 text-white">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Pronto para encontrar seu imóvel dos sonhos?
@@ -340,7 +340,7 @@ export default function PropertiesPage() {
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Delete Confirmation Modal */}
