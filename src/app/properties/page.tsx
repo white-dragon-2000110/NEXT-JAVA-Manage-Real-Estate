@@ -146,7 +146,7 @@ export default function PropertiesPage() {
 
   const filteredProperties = mockProperties.filter(property => {
     const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         property.location.toLowerCase().includes(searchTerm.toLowerCase())
+      property.location.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesType = filterType === 'all' || property.type === filterType
     return matchesSearch && matchesType
   })
@@ -179,7 +179,7 @@ export default function PropertiesPage() {
         <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50" />
-          
+
           {/* Floating geometric shapes */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl animate-pulse" />
@@ -191,16 +191,11 @@ export default function PropertiesPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Main Heading */}
             <div className="mb-8">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient leading-tight">
-                Encontre o Imóvel
-                <br />
-                <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  dos Seus Sonhos
-                </span>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#1A53E0] leading-tight">
+                Bom dia, Luciana!
               </h1>
-              <p className="text-xl md:text-2xl text-foreground/70 max-w-4xl mx-auto leading-relaxed">
-                Explore milhares de propriedades em todo o Brasil com as melhores localizações, 
-                preços competitivos e uma experiência de busca incomparável.
+              <p className="text-xl md:text-2xl text-[#1A53E0] max-w-4xl mx-auto leading-relaxed">
+                Que tipo de imóvel está procurando hoje?
               </p>
             </div>
 
@@ -222,8 +217,8 @@ export default function PropertiesPage() {
                   </div>
 
                   {/* Search Button */}
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="h-16 px-12 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                     data-button="buscar-imoveis-hero"
                     style={{
@@ -259,7 +254,7 @@ export default function PropertiesPage() {
                         e.currentTarget.style.transform = 'scale(1)';
                       }
                     }}
-                    onClick={() => {}}
+                    onClick={() => { }}
                   >
                     <Search className="h-5 w-5 mr-2" />
                     Buscar Imóveis
@@ -305,7 +300,7 @@ export default function PropertiesPage() {
                 Oferecemos as melhores opções com qualidade garantida e atendimento personalizado
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center group">
                 <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -314,7 +309,7 @@ export default function PropertiesPage() {
                 <h3 className="text-xl font-semibold text-foreground mb-2">Qualidade Garantida</h3>
                 <p className="text-foreground/60">Todos os imóveis são verificados e aprovados por nossa equipe</p>
               </div>
-              
+
               <div className="text-center group">
                 <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <MapPin className="h-10 w-10 text-white" />
@@ -322,7 +317,7 @@ export default function PropertiesPage() {
                 <h3 className="text-xl font-semibold text-foreground mb-2">Melhores Localizações</h3>
                 <p className="text-foreground/60">Imóveis estrategicamente posicionados em áreas de alto valor</p>
               </div>
-              
+
               <div className="text-center group">
                 <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Heart className="h-10 w-10 text-white" />
@@ -330,7 +325,7 @@ export default function PropertiesPage() {
                 <h3 className="text-xl font-semibold text-foreground mb-2">Atendimento Personalizado</h3>
                 <p className="text-foreground/60">Nossa equipe está sempre pronta para ajudar você</p>
               </div>
-              
+
               <div className="text-center group">
                 <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Star className="h-10 w-10 text-white" />
@@ -575,21 +570,19 @@ export default function PropertiesPage() {
                   <div className="flex items-center border-2 border-gray-200 rounded-xl p-1 bg-white/80 backdrop-blur-sm shadow-lg">
                     <button
                       onClick={() => setViewMode('grid')}
-                      className={`p-3 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                        viewMode === 'grid' 
-                          ? 'bg-gradient-to-r from-purple-500 to-blue-600 text-white shadow-lg' 
-                          : 'text-foreground/60 hover:text-foreground hover:bg-gray-50'
-                      }`}
+                      className={`p-3 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105 ${viewMode === 'grid'
+                        ? 'bg-gradient-to-r from-purple-500 to-blue-600 text-white shadow-lg'
+                        : 'text-foreground/60 hover:text-foreground hover:bg-gray-50'
+                        }`}
                     >
                       <Grid className="h-5 w-5" />
                     </button>
                     <button
                       onClick={() => setViewMode('list')}
-                      className={`p-3 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                        viewMode === 'list' 
-                          ? 'bg-gradient-to-r from-purple-500 to-blue-600 text-white shadow-lg' 
-                          : 'text-foreground/60 hover:text-foreground hover:bg-gray-50'
-                      }`}
+                      className={`p-3 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105 ${viewMode === 'list'
+                        ? 'bg-gradient-to-r from-purple-500 to-blue-600 text-white shadow-lg'
+                        : 'text-foreground/60 hover:text-foreground hover:bg-gray-50'
+                        }`}
                     >
                       <List className="h-5 w-5" />
                     </button>
@@ -601,24 +594,24 @@ export default function PropertiesPage() {
               {viewMode === 'grid' ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {filteredProperties.map((property) => (
-                    <PropertyCard 
-                      key={property.id} 
-                      property={property} 
-                      onDelete={handleDeleteClick} 
-                      pressedButtonId={pressedButtonId} 
-                      setPressedButtonId={setPressedButtonId} 
+                    <PropertyCard
+                      key={property.id}
+                      property={property}
+                      onDelete={handleDeleteClick}
+                      pressedButtonId={pressedButtonId}
+                      setPressedButtonId={setPressedButtonId}
                     />
                   ))}
                 </div>
               ) : (
                 <div className="space-y-4">
                   {filteredProperties.map((property) => (
-                    <PropertyListCard 
-                      key={property.id} 
-                      property={property} 
-                      onDelete={handleDeleteClick} 
-                      pressedButtonId={pressedButtonId} 
-                      setPressedButtonId={setPressedButtonId} 
+                    <PropertyListCard
+                      key={property.id}
+                      property={property}
+                      onDelete={handleDeleteClick}
+                      pressedButtonId={pressedButtonId}
+                      setPressedButtonId={setPressedButtonId}
                     />
                   ))}
                 </div>
@@ -659,12 +652,12 @@ export default function PropertiesPage() {
               Pronto para encontrar seu imóvel dos sonhos?
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Nossa equipe está pronta para ajudar você a encontrar o imóvel perfeito. 
+              Nossa equipe está pronta para ajudar você a encontrar o imóvel perfeito.
               Entre em contato conosco hoje mesmo!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="secondary"
                 className="text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 onClick={() => window.location.href = '/contact'}
@@ -672,8 +665,8 @@ export default function PropertiesPage() {
                 <MapPin className="h-5 w-5 mr-2" />
                 Falar com Corretor
               </Button>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="secondary"
                 className="text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 onClick={() => window.location.href = '/sell'}
@@ -698,22 +691,22 @@ export default function PropertiesPage() {
                 Confirmar Exclusão
               </h3>
             </div>
-            
+
             <p className="text-foreground/70 mb-6">
-              Tem certeza que deseja excluir o imóvel "{propertyToDelete?.title}"? 
+              Tem certeza que deseja excluir o imóvel "{propertyToDelete?.title}"?
               Esta ação não pode ser desfeita.
             </p>
-            
+
             <div className="flex space-x-3">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={handleDeleteCancel}
                 className="flex-1"
               >
                 Cancelar
               </Button>
-              <Button 
-                variant="destructive" 
+              <Button
+                variant="destructive"
                 onClick={handleDeleteConfirm}
                 className="flex-1"
               >
@@ -727,13 +720,13 @@ export default function PropertiesPage() {
   )
 }
 
-function PropertyCard({ 
-  property, 
-  onDelete, 
-  pressedButtonId, 
-  setPressedButtonId 
-}: { 
-  property: Property; 
+function PropertyCard({
+  property,
+  onDelete,
+  pressedButtonId,
+  setPressedButtonId
+}: {
+  property: Property;
   onDelete: (property: Property) => void;
   pressedButtonId: string | null;
   setPressedButtonId: (id: string | null) => void;
@@ -751,7 +744,7 @@ function PropertyCard({
   }
 
   return (
-    <Card 
+    <Card
       className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -780,18 +773,16 @@ function PropertyCard({
         </Badge>
 
         {/* Action Buttons */}
-        <div className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${
-          isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
-        }`}>
+        <div className={`absolute top-3 right-3 flex flex-col gap-2 transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+          }`}>
           <Button
             size="sm"
             variant="secondary"
             className="h-9 w-9 p-0 bg-white/90 backdrop-blur-sm hover:bg-white shadow-lg"
             onClick={() => setIsFavorite(!isFavorite)}
           >
-            <Heart className={`h-4 w-4 transition-all duration-300 ${
-              isFavorite ? 'fill-current text-red-500 scale-110' : 'text-foreground/70'
-            }`} />
+            <Heart className={`h-4 w-4 transition-all duration-300 ${isFavorite ? 'fill-current text-red-500 scale-110' : 'text-foreground/70'
+              }`} />
           </Button>
           <Button
             size="sm"
@@ -811,9 +802,8 @@ function PropertyCard({
         </div>
 
         {/* Hover Overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`} />
+        <div className={`absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'
+          }`} />
       </div>
 
       {/* Content */}
@@ -857,7 +847,7 @@ function PropertyCard({
 
         {/* CTA Button */}
         <div className="mt-auto">
-          <Button 
+          <Button
             className="w-full cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             data-button="ver-detalhes-grid"
             style={{
@@ -904,13 +894,13 @@ function PropertyCard({
   )
 }
 
-function PropertyListCard({ 
-  property, 
-  onDelete, 
-  pressedButtonId, 
-  setPressedButtonId 
-}: { 
-  property: Property; 
+function PropertyListCard({
+  property,
+  onDelete,
+  pressedButtonId,
+  setPressedButtonId
+}: {
+  property: Property;
   onDelete: (property: Property) => void;
   pressedButtonId: string | null;
   setPressedButtonId: (id: string | null) => void;
@@ -936,14 +926,14 @@ function PropertyListCard({
             </div>
             <div className="text-foreground/60 text-sm">Imagem do Imóvel</div>
           </div>
-          
+
           {/* Floating shapes */}
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-2xl" />
             <div className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-r from-pink-200/30 to-red-200/30 rounded-full blur-2xl" />
           </div>
         </div>
-        
+
         <div className="flex-1 p-8">
           <div className="flex items-start justify-between mb-6">
             <div className="flex-1">
@@ -965,7 +955,7 @@ function PropertyListCard({
                 <span className="text-base">{property.location}</span>
               </div>
             </div>
-            
+
             <div className="text-right">
               <div className="text-3xl font-bold text-primary mb-3 group-hover:scale-105 transition-transform duration-300">
                 {formatPrice(property.price)}
@@ -990,9 +980,9 @@ function PropertyListCard({
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
-            <Button 
+            <Button
               className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
               data-button="ver-detalhes-list"
               style={{
@@ -1038,20 +1028,19 @@ function PropertyListCard({
               className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 hover:border-primary"
               onClick={() => setIsFavorite(!isFavorite)}
             >
-              <Heart className={`h-4 w-4 mr-2 transition-all duration-300 ${
-                isFavorite ? 'fill-current text-red-500 scale-110' : ''
-              }`} />
+              <Heart className={`h-4 w-4 mr-2 transition-all duration-300 ${isFavorite ? 'fill-current text-red-500 scale-110' : ''
+                }`} />
               {isFavorite ? 'Favorito' : 'Favoritar'}
             </Button>
-            <Button 
+            <Button
               variant="outline"
               className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 hover:border-primary"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Compartilhar
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-red-200 hover:border-red-500 text-red-600 hover:text-red-700 hover:bg-red-50"
               onClick={() => onDelete(property)}
             >
