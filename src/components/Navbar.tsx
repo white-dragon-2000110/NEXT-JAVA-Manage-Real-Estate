@@ -37,7 +37,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/properties" className="flex items-center space-x-2">
               <img src="/logo.png" alt="logo" className="h-12 w-8" />
-              <span className="ml-2 text-3xl font-bold text-foreground">Gênio imob</span>
+              <span className="ml-2 text-3xl font-bold text-[#055ab7]">Gênio imob</span>
             </Link>
           </div>
 
@@ -71,7 +71,7 @@ export function Navbar() {
           {/* Theme Toggle and Actions */}
           <div className="flex items-center space-x-4">
             {/* Theme Toggle */}
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <Sun className="h-4 w-4 text-foreground/60" />
               <Switch
                 id="theme-toggle"
@@ -82,7 +82,7 @@ export function Navbar() {
               <Label htmlFor="theme-toggle" className="sr-only">
                 Alternar tema
               </Label>
-            </div>
+            </div> */}
 
             {/* Auth Buttons */}
             <div className="hidden md:flex items-center space-x-2">
