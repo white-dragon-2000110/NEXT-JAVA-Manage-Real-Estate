@@ -78,7 +78,7 @@ export default function PropertyDetailPage() {
         <div className="bg-muted/30 py-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center space-x-2 text-sm text-foreground/60">
-              <Link href="/" className="hover:text-foreground">Início</Link>
+                              <Link href="/properties" className="hover:text-foreground">Imóveis</Link>
               <span>/</span>
               <Link href="/properties" className="hover:text-foreground">Imóveis</Link>
               <span>/</span>
@@ -232,14 +232,14 @@ export default function PropertyDetailPage() {
                       Enviar Mensagem
                     </Button>
                     <Button 
-                      variant="outline" 
-                      className="w-full"
                       onClick={() => setIsFavorite(!isFavorite)}
+                      variant={isFavorite ? "default" : "outline"}
+                      className="cursor-pointer"
                     >
-                      <Heart className={`h-4 w-4 mr-2 ${isFavorite ? 'fill-current text-red-500' : ''}`} />
-                      {isFavorite ? 'Favorito' : 'Adicionar aos Favoritos'}
+                      <Heart className={`h-4 w-4 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
+                      {isFavorite ? 'Favoritado' : 'Favoritar'}
                     </Button>
-                    <Button variant="outline" className="w-full" onClick={shareProperty}>
+                    <Button variant="outline" className="w-full cursor-pointer" onClick={shareProperty}>
                       <Share2 className="h-4 w-4 mr-2" />
                       Compartilhar
                     </Button>

@@ -18,7 +18,9 @@ import {
   Building,
   Home,
   Clock,
-  TrendingUp
+  TrendingUp,
+  RotateCcw,
+  Bookmark
 } from 'lucide-react'
 
 interface SearchHistory {
@@ -219,7 +221,7 @@ export function HistoricoBuscas() {
           <p className="text-foreground/60">Acompanhe suas pesquisas anteriores de imóveis</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={clearAllHistory}>
+          <Button variant="outline" onClick={clearAllHistory} className="cursor-pointer">
             <Trash2 className="h-4 w-4 mr-2" />
             Limpar Histórico
           </Button>
@@ -388,7 +390,7 @@ export function HistoricoBuscas() {
                     variant="outline"
                     size="sm"
                     onClick={() => repeatSearch(history)}
-                    className="w-full"
+                    className="w-full cursor-pointer"
                   >
                     <Search className="h-4 w-4 mr-2" />
                     Repetir
@@ -397,7 +399,7 @@ export function HistoricoBuscas() {
                     variant={history.isSaved ? "default" : "outline"}
                     size="sm"
                     onClick={() => saveSearch(history.id)}
-                    className="w-full"
+                    className="w-full cursor-pointer"
                   >
                     <Eye className="h-4 w-4 mr-2" />
                     {history.isSaved ? 'Salva' : 'Salvar'}
@@ -406,7 +408,7 @@ export function HistoricoBuscas() {
                     variant="ghost"
                     size="sm"
                     onClick={() => deleteSearch(history.id)}
-                    className="w-full text-destructive hover:text-destructive"
+                    className="text-red-600 hover:text-red-700 cursor-pointer"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

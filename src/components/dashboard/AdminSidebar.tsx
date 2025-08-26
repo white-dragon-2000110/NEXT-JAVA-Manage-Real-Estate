@@ -17,7 +17,8 @@ import {
   ChevronRight,
   TrendingUp,
   AlertTriangle,
-  CheckCircle
+  CheckCircle,
+  ChevronLeft
 } from 'lucide-react'
 
 interface AdminSidebarProps {
@@ -75,7 +76,7 @@ export function AdminSidebar({ activeSection, onSectionChange, onMobileClose }: 
         {/* Header */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/properties" className="flex items-center space-x-2">
               <Building className="h-8 w-8 text-primary" />
               {!isCollapsed && (
                 <span className="text-xl font-bold text-foreground">RealEstatePro Admin</span>
@@ -85,11 +86,9 @@ export function AdminSidebar({ activeSection, onSectionChange, onMobileClose }: 
               variant="ghost"
               size="sm"
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="h-8 w-8 p-0"
+              className="absolute -right-3 top-6 h-6 w-6 rounded-full border bg-background cursor-pointer"
             >
-              <ChevronRight className={`h-4 w-4 transition-transform ${
-                isCollapsed ? 'rotate-180' : ''
-              }`} />
+              <ChevronLeft className={`h-4 w-4 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} />
             </Button>
           </div>
         </div>
@@ -130,7 +129,7 @@ export function AdminSidebar({ activeSection, onSectionChange, onMobileClose }: 
                   onSectionChange(item.id as any)
                   onMobileClose?.()
                 }}
-                className={`w-full group relative transition-all duration-200 ${
+                className={`w-full group relative transition-all duration-200 cursor-pointer ${
                   isActive
                     ? 'bg-primary text-primary-foreground'
                     : 'hover:bg-muted text-foreground/80 hover:text-foreground'

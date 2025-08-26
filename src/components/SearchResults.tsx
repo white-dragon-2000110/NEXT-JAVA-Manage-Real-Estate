@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { MapPin, Bed, Bath, Square, Car, Heart, Share2, Eye } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Car, Heart, Share2, Eye, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 
 interface Property {
@@ -162,26 +162,26 @@ export function SearchResults() {
               {/* Action Buttons */}
               <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <Button
+                  variant="ghost"
                   size="sm"
-                  variant="secondary"
-                  className="h-8 w-8 p-0"
                   onClick={() => toggleFavorite(property.id)}
+                  className="cursor-pointer"
                 >
                   <Heart className={`h-4 w-4 ${favorites.includes(property.id) ? 'fill-current text-red-500' : ''}`} />
                 </Button>
                 <Button
+                  variant="ghost"
                   size="sm"
-                  variant="secondary"
-                  className="h-8 w-8 p-0"
                   onClick={() => toggleComparison(property.id)}
+                  className="cursor-pointer"
                 >
-                  <Eye className={`h-4 w-4 ${comparisonList.includes(property.id) ? 'text-primary' : ''}`} />
+                  <BarChart3 className={`h-4 w-4 ${comparisonList.includes(property.id) ? 'text-primary' : ''}`} />
                 </Button>
                 <Button
+                  variant="ghost"
                   size="sm"
-                  variant="secondary"
-                  className="h-8 w-8 p-0"
                   onClick={() => shareProperty(property)}
+                  className="cursor-pointer"
                 >
                   <Share2 className="h-4 w-4" />
                 </Button>
@@ -235,7 +235,7 @@ export function SearchResults() {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center">
+      <div className="flex justify-center cursor-pointer">
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="sm">
             Anterior

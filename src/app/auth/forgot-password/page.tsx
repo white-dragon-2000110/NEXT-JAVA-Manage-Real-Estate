@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center space-x-2 text-2xl font-bold text-foreground">
+            <Link href="/properties" className="inline-flex items-center space-x-2 text-2xl font-bold text-foreground">
               <Car className="h-8 w-8 text-primary" />
               <span>VehicleMarket</span>
             </Link>
@@ -99,13 +99,13 @@ export default function ForgotPasswordPage() {
             </CardContent>
           </Card>
 
-          {/* Back to Home */}
+          {/* Back to Properties */}
           <div className="text-center mt-6">
             <Link
-              href="/"
+              href="/properties"
               className="text-foreground/60 hover:text-foreground text-sm"
             >
-              ← Voltar para o início
+              ← Voltar para Imóveis
             </Link>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 text-2xl font-bold text-foreground">
+          <Link href="/properties" className="inline-flex items-center space-x-2 text-2xl font-bold text-foreground">
             <Car className="h-8 w-8 text-primary" />
             <span>VehicleMarket</span>
           </Link>
@@ -184,13 +184,13 @@ export default function ForgotPasswordPage() {
           </CardContent>
         </Card>
 
-        {/* Back to Home */}
+        {/* Back to Properties */}
         <div className="text-center mt-6">
           <Link
-            href="/"
+            href="/properties"
             className="text-foreground/60 hover:text-foreground text-sm"
           >
-            ← Voltar para o início
+            ← Voltar para Imóveis
           </Link>
         </div>
       </div>

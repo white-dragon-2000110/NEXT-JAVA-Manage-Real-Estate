@@ -1,7 +1,7 @@
 'use client'
 
 import { RootLayout } from '@/layouts/RootLayout'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -114,6 +114,26 @@ export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [propertyToDelete, setPropertyToDelete] = useState<Property | null>(null)
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null)
+
+  // Global mouse up event handler for button release
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null)
+        // Reset button styles
+        const button = document.querySelector(`[data-button="${pressedButtonId}"]`) as HTMLElement
+        if (button) {
+          button.style.backgroundColor = '#1A53E0'
+          button.style.borderColor = '#1A53E0'
+          button.style.transform = 'scale(1)'
+        }
+      }
+    }
+
+    document.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [pressedButtonId])
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -156,7 +176,7 @@ export default function PropertiesPage() {
     <RootLayout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-primary/10 via-background to-muted/30 py-16">
+        <div className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
               Encontre o Imóvel Perfeito
@@ -178,7 +198,44 @@ export default function PropertiesPage() {
                       className="h-12 text-lg"
                     />
                   </div>
-                  <Button size="lg" className="h-12 px-8">
+                  <Button 
+                    size="lg" 
+                    className="h-12 px-8"
+                    data-button="buscar-imoveis"
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== 'buscar-imoveis') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== 'buscar-imoveis') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId('buscar-imoveis');
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === 'buscar-imoveis') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
                     Buscar Imóveis
                   </Button>
                 </div>
@@ -220,12 +277,45 @@ export default function PropertiesPage() {
 
                   {/* Clear Filters */}
                   <Button
-                    variant="outline"
                     onClick={() => {
                       setFilterType('all')
                       setSearchTerm('')
                     }}
-                    className="w-full"
+                    className="w-full cursor-pointer"
+                    data-button="limpar-filtros"
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== 'limpar-filtros') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== 'limpar-filtros') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId('limpar-filtros');
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === 'limpar-filtros') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
                   >
                     Limpar Filtros
                   </Button>
@@ -251,21 +341,33 @@ export default function PropertiesPage() {
                   <div className="flex items-center border rounded-lg p-1 bg-muted">
                     <button
                       onClick={() => setViewMode('grid')}
-                      className={`p-2 rounded-md transition-colors ${
+                      className={`p-2 rounded-md transition-colors cursor-pointer ${
                         viewMode === 'grid' 
                           ? 'bg-background text-foreground shadow-sm' 
                           : 'text-foreground/60 hover:text-foreground'
                       }`}
+                      style={viewMode === 'grid' ? {
+                        background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                        backgroundSize: '200% 200%',
+                        animation: 'gradient 3s ease infinite',
+                        color:'white'
+                      } : {}}
                     >
                       <Grid className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => setViewMode('list')}
-                      className={`p-2 rounded-md transition-colors ${
+                      className={`p-2 rounded-md transition-colors cursor-pointer ${
                         viewMode === 'list' 
                           ? 'bg-background text-foreground shadow-sm' 
                           : 'text-foreground/60 hover:text-foreground'
                       }`}
+                      style={viewMode === 'list' ? {
+                        background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                        backgroundSize: '200% 200%',
+                        animation: 'gradient 3s ease infinite',
+                        color:'white'
+                      } : {}}
                     >
                       <List className="h-4 w-4" />
                     </button>
@@ -277,13 +379,25 @@ export default function PropertiesPage() {
               {viewMode === 'grid' ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {filteredProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} onDelete={handleDeleteClick} />
+                    <PropertyCard 
+                      key={property.id} 
+                      property={property} 
+                      onDelete={handleDeleteClick} 
+                      pressedButtonId={pressedButtonId} 
+                      setPressedButtonId={setPressedButtonId} 
+                    />
                   ))}
                 </div>
               ) : (
                 <div className="space-y-4">
                   {filteredProperties.map((property) => (
-                    <PropertyListCard key={property.id} property={property} onDelete={handleDeleteClick} />
+                    <PropertyListCard 
+                      key={property.id} 
+                      property={property} 
+                      onDelete={handleDeleteClick} 
+                      pressedButtonId={pressedButtonId} 
+                      setPressedButtonId={setPressedButtonId} 
+                    />
                   ))}
                 </div>
               )}
@@ -357,7 +471,17 @@ export default function PropertiesPage() {
   )
 }
 
-function PropertyCard({ property, onDelete }: { property: Property; onDelete: (property: Property) => void }) {
+function PropertyCard({ 
+  property, 
+  onDelete, 
+  pressedButtonId, 
+  setPressedButtonId 
+}: { 
+  property: Property; 
+  onDelete: (property: Property) => void;
+  pressedButtonId: string | null;
+  setPressedButtonId: (id: string | null) => void;
+}) {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const formatPrice = (price: number) => {
@@ -447,10 +571,45 @@ function PropertyCard({ property, onDelete }: { property: Property; onDelete: (p
         </div>
 
         <div className="mt-auto">
-          <Button className="w-full" asChild>
-            <Link href={`/property/${property.id}`}>
-              Ver Detalhes
-            </Link>
+          <Button 
+            className="w-full cursor-pointer"
+            data-button="ver-detalhes-grid"
+            style={{
+              backgroundColor: '#1A53E0',
+              borderColor: '#1A53E0',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              if (pressedButtonId !== 'ver-detalhes-grid') {
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (pressedButtonId !== 'ver-detalhes-grid') {
+                e.currentTarget.style.backgroundColor = '#1A53E0';
+                e.currentTarget.style.borderColor = '#1A53E0';
+              }
+            }}
+            onMouseDown={(e) => {
+              setPressedButtonId('ver-detalhes-grid');
+              e.currentTarget.style.backgroundColor = '#0a2a8a';
+              e.currentTarget.style.borderColor = '#0a2a8a';
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onMouseUp={(e) => {
+              if (pressedButtonId === 'ver-detalhes-grid') {
+                setPressedButtonId(null);
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+                e.currentTarget.style.transform = 'scale(1)';
+              }
+            }}
+            onClick={() => window.location.href = `/property/${property.id}`}
+          >
+            Ver Detalhes
           </Button>
         </div>
       </CardContent>
@@ -458,7 +617,17 @@ function PropertyCard({ property, onDelete }: { property: Property; onDelete: (p
   )
 }
 
-function PropertyListCard({ property, onDelete }: { property: Property; onDelete: (property: Property) => void }) {
+function PropertyListCard({ 
+  property, 
+  onDelete, 
+  pressedButtonId, 
+  setPressedButtonId 
+}: { 
+  property: Property; 
+  onDelete: (property: Property) => void;
+  pressedButtonId: string | null;
+  setPressedButtonId: (id: string | null) => void;
+}) {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const formatPrice = (price: number) => {
@@ -525,11 +694,45 @@ function PropertyListCard({ property, onDelete }: { property: Property; onDelete
           </div>
           
           <div className="flex items-center gap-2">
-            <Button asChild>
-              <Link href={`/property/${property.id}`}>
-                <Eye className="h-4 w-4 mr-2" />
-                Ver Detalhes
-              </Link>
+            <Button 
+              data-button="ver-detalhes-list"
+              style={{
+                backgroundColor: '#1A53E0',
+                borderColor: '#1A53E0',
+                color: 'white',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease-in-out'
+              }}
+              onMouseEnter={(e) => {
+                if (pressedButtonId !== 'ver-detalhes-list') {
+                  e.currentTarget.style.backgroundColor = '#0f3bb8';
+                  e.currentTarget.style.borderColor = '#0f3bb8';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (pressedButtonId !== 'ver-detalhes-list') {
+                  e.currentTarget.style.backgroundColor = '#1A53E0';
+                  e.currentTarget.style.borderColor = '#1A53E0';
+                }
+              }}
+              onMouseDown={(e) => {
+                setPressedButtonId('ver-detalhes-list');
+                e.currentTarget.style.backgroundColor = '#0a2a8a';
+                e.currentTarget.style.borderColor = '#0a2a8a';
+                e.currentTarget.style.transform = 'scale(0.98)';
+              }}
+              onMouseUp={(e) => {
+                if (pressedButtonId === 'ver-detalhes-list') {
+                  setPressedButtonId(null);
+                  e.currentTarget.style.backgroundColor = '#0f3bb8';
+                  e.currentTarget.style.borderColor = '#0f3bb8';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }
+              }}
+              onClick={() => window.location.href = `/property/${property.id}`}
+            >
+              <Eye className="h-4 w-4 mr-2" />
+              Ver Detalhes
             </Button>
             <Button
               variant="outline"

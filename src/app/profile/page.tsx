@@ -171,8 +171,9 @@ export default function ProfilePage() {
                           <span>Informações Pessoais</span>
                         </CardTitle>
                         <Button
-                          variant={isEditing ? "outline" : "default"}
                           onClick={() => setIsEditing(!isEditing)}
+                          variant="outline"
+                          className="cursor-pointer"
                         >
                           {isEditing ? (
                             <>
@@ -182,7 +183,7 @@ export default function ProfilePage() {
                           ) : (
                             <>
                               <Edit className="h-4 w-4 mr-2" />
-                              Editar
+                              Editar Perfil
                             </>
                           )}
                         </Button>
@@ -282,6 +283,7 @@ export default function ProfilePage() {
                               type="button"
                               variant="outline"
                               onClick={() => setIsEditing(false)}
+                              className="cursor-pointer"
                             >
                               Cancelar
                             </Button>
@@ -289,6 +291,7 @@ export default function ProfilePage() {
                               type="button"
                               onClick={handleSave}
                               disabled={isSaving}
+                              className="cursor-pointer"
                             >
                               {isSaving ? (
                                 <>

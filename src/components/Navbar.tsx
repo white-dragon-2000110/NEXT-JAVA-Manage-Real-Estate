@@ -17,8 +17,6 @@ export function Navbar() {
   const pathname = usePathname()
 
   const navigation = [
-    { name: 'Início', href: '/' },
-    { name: 'Buscar', href: '/search' },
     { name: 'Imóveis', href: '/properties' },
     { name: 'Vendedora', href: '/sell' },
     { name: 'Preços', href: '/pricing' },
@@ -28,9 +26,6 @@ export function Navbar() {
   ]
 
   const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/'
-    }
     return pathname.startsWith(href)
   }
 
@@ -40,7 +35,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/properties" className="flex items-center space-x-2">
               <Building className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-foreground">RealEstatePro</span>
             </Link>
@@ -57,9 +52,14 @@ export function Navbar() {
                     href={item.href}
                     className={`relative px-3 py-2 rounded-md transition-all duration-200 ${
                       active
-                        ? 'text-primary font-medium bg-primary/10 border-b-2 border-primary'
+                        ? 'text-white font-medium'
                         : 'text-foreground/80 hover:text-foreground hover:bg-accent/50'
                     }`}
+                    style={active ? {
+                      background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                      backgroundSize: '200% 200%',
+                      animation: 'gradient 3s ease infinite'
+                    } : {}}
                   >
                     {item.name}
                   </Link>
@@ -120,9 +120,14 @@ export function Navbar() {
                     href={item.href}
                     className={`block px-3 py-2 rounded-md transition-colors ${
                       active
-                        ? 'text-primary font-medium bg-primary/10 border-l-4 border-primary'
+                        ? 'text-white font-medium'
                         : 'text-foreground/80 hover:text-foreground hover:bg-accent'
                     }`}
+                    style={active ? {
+                      background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                      backgroundSize: '200% 200%',
+                      animation: 'gradient 3s ease infinite'
+                    } : {}}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}

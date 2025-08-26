@@ -137,3 +137,75 @@ body {
   background-size: 200% 200%;
   animation: gradient 3s ease infinite;
 }
+
+/* Rose Gradient Border Animation */
+@keyframes rose-gradient-border {
+  0% {
+    border-image: linear-gradient(45deg, #f43f5e, #ec4899, #f43f5e) 1;
+  }
+  50% {
+    border-image: linear-gradient(45deg, #ec4899, #f43f5e, #ec4899) 1;
+  }
+  100% {
+    border-image: linear-gradient(45deg, #f43f5e, #ec4899, #f43f5e) 1;
+  }
+}
+
+.animate-rose-border {
+  animation: rose-border 2s ease-in-out infinite;
+}
+
+/* FAQ Card Slide-in Animations */
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+/* Custom duration for FAQ transitions */
+.duration-800 {
+  transition-duration: 800ms;
+}
+
+/* FAQ Card Animation Classes */
+.faq-card-hidden {
+  opacity: 0;
+  transform: translateX(300px);
+  transition: all 1.5s ease-out;
+}
+
+.faq-card-hidden-left {
+  opacity: 0;
+  transform: translateX(-300px);
+  transition: all 1.5s ease-out;
+}
+
+.faq-card-visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 1.5s ease-out;
+}

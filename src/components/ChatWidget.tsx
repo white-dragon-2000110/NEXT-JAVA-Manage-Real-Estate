@@ -110,7 +110,12 @@ export function ChatWidget() {
         <Button
           onClick={toggleChat}
           size="lg"
-          className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90"
+          className="h-14 w-14 rounded-full shadow-lg cursor-pointer"
+          style={{
+            background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+            backgroundSize: '200% 200%',
+            animation: 'gradient 3s ease infinite'
+          }}
         >
           <MessageCircle className="h-6 w-6" />
         </Button>
@@ -120,8 +125,14 @@ export function ChatWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <Card className="w-80 h-96 shadow-2xl border-0 bg-background">
-        <CardHeader className="pb-3 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-t-lg">
+      <Card className="w-80 h-96 shadow-2xl border-0 bg-background py-0">
+        <CardHeader className="pb-3 pt-3 rounded-t-lg text-white"
+          style={{
+            background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+            backgroundSize: '200% 200%',
+            animation: 'gradient 3s ease infinite'
+          }}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Bot className="h-5 w-5" />
@@ -132,17 +143,17 @@ export function ChatWidget() {
                 variant="ghost"
                 size="sm"
                 onClick={toggleMinimize}
-                className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20 cursor-pointer"
               >
-                {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+                {isMinimized ? <Maximize2 className="h-4 w-4 cursor-pointer" /> : <Minimize2 className="h-4 w-4 cursor-pointer" />}
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleChat}
-                className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20"
+                className="h-8 w-8 p-0 text-primary-foreground hover:bg-primary-foreground/20 cursor-pointer"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4 cursor-pointer" />
               </Button>
             </div>
           </div>
@@ -213,7 +224,14 @@ export function ChatWidget() {
                     onClick={handleSendMessage}
                     size="sm"
                     disabled={!inputValue.trim() || isTyping}
-                    className="px-3"
+                    className="px-3 cursor-pointer"
+                    style={{
+                      background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                      backgroundSize: '200% 200%',
+                      animation: 'gradient 3s ease infinite',
+                      border: 'none',
+                      color: 'white'
+                    }}
                   >
                     <Send className="h-4 w-4" />
                   </Button>

@@ -20,7 +20,8 @@ import {
   Eye as EyeIcon,
   MessageSquare,
   Star,
-  TrendingUp
+  TrendingUp,
+  Power
 } from 'lucide-react'
 
 interface Announcement {
@@ -435,7 +436,7 @@ export function GerenciarAnuncios() {
                         size="sm" 
                         variant={announcement.status === 'active' ? 'outline' : 'default'}
                         onClick={() => toggleStatus(announcement.id)}
-                        className="w-full"
+                        className="w-full cursor-pointer"
                       >
                         {announcement.status === 'active' ? (
                           <>
@@ -454,7 +455,7 @@ export function GerenciarAnuncios() {
                         size="sm" 
                         variant="destructive" 
                         onClick={() => deleteAnnouncement(announcement.id)}
-                        className="w-full"
+                        className="w-full cursor-pointer"
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Excluir

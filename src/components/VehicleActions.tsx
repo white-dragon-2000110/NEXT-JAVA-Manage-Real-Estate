@@ -63,20 +63,18 @@ export function VehicleActions({ vehicle }: VehicleActionsProps) {
         <div className="space-y-3">
           <Button 
             onClick={handleChat}
-            className="w-full h-12 text-lg"
-            size="lg"
+            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer"
           >
-            <MessageCircle className="h-5 w-5 mr-2" />
-            Chat com Vendedor
+            <MessageCircle className="h-4 w-4 mr-2" />
+            Chat
           </Button>
           
           <Button 
             onClick={handleScheduleVisit}
             variant="outline"
-            className="w-full h-12 text-lg"
-            size="lg"
+            className="flex-1 cursor-pointer"
           >
-            <Calendar className="h-5 w-5 mr-2" />
+            <Calendar className="h-4 w-4 mr-2" />
             Agendar Visita
           </Button>
         </div>
@@ -84,31 +82,33 @@ export function VehicleActions({ vehicle }: VehicleActionsProps) {
         {/* Secondary Actions */}
         <div className="grid grid-cols-2 gap-3">
           <Button
-            variant={isFavorite ? "default" : "outline"}
             onClick={toggleFavorite}
-            className="h-11"
+            variant="outline"
+            className={`flex-1 transition-colors cursor-pointer ${
+              isFavorite ? 'bg-red-50 border-red-200 text-red-600 hover:bg-red-100' : ''
+            }`}
           >
-            <Heart 
-              className={`h-4 w-4 mr-2 ${isFavorite ? 'fill-current' : ''}`} 
-            />
-            {isFavorite ? 'Favoritado' : 'Favoritar'}
+            <Heart className={`h-4 w-4 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
+            {isFavorite ? 'Favorito' : 'Favoritar'}
           </Button>
 
           <Button
-            variant={isInComparison ? "default" : "outline"}
             onClick={toggleComparison}
-            className="h-11"
+            variant="outline"
+            className={`flex-1 transition-colors cursor-pointer ${
+              isInComparison ? 'bg-blue-50 border-blue-200 text-blue-600 hover:bg-blue-100' : ''
+            }`}
           >
-            <BarChart3 className="h-4 w-4 mr-2" />
-            {isInComparison ? 'Remover' : 'Comparar'}
+            <BarChart3 className={`h-4 w-4 mr-2 ${isInComparison ? 'fill-current' : ''}`} />
+            {isInComparison ? 'Comparando' : 'Comparar'}
           </Button>
         </div>
 
         {/* Share Button */}
         <Button
-          variant="ghost"
           onClick={handleShare}
-          className="w-full h-11"
+          variant="outline"
+          className="flex-1 cursor-pointer"
         >
           <Share2 className="h-4 w-4 mr-2" />
           Compartilhar

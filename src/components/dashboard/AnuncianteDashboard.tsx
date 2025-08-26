@@ -42,9 +42,9 @@ export function AnuncianteDashboard() {
             variant="ghost"
             size="sm"
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="h-10 w-10 p-0"
+            className="cursor-pointer"
           >
-            {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Menu className="h-5 w-5" />
           </Button>
         </div>
 
@@ -67,7 +67,7 @@ export function AnuncianteDashboard() {
         {/* Mobile Overlay */}
         {sidebarOpen && (
           <div 
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden cursor-pointer"
             onClick={() => setSidebarOpen(false)}
           />
         )}

@@ -156,7 +156,7 @@ export function SimilarVehicles({ currentVehicleId }: SimilarVehiclesProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => toggleFavorite(vehicle.id)}
-                    className="h-8 w-8 p-0 bg-background/80 hover:bg-background"
+                    className="cursor-pointer"
                   >
                     <Heart 
                       className={`h-4 w-4 ${favorites.includes(vehicle.id) ? 'fill-red-500 text-red-500' : 'text-foreground'}`} 
@@ -166,7 +166,7 @@ export function SimilarVehicles({ currentVehicleId }: SimilarVehiclesProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => handleShare(vehicle)}
-                    className="h-8 w-8 p-0 bg-background/80 hover:bg-background"
+                    className="cursor-pointer"
                   >
                     <Share2 className="h-4 w-4" />
                   </Button>
@@ -227,9 +227,12 @@ export function SimilarVehicles({ currentVehicleId }: SimilarVehiclesProps) {
                 <div className="text-2xl font-bold text-primary mb-3">
                   {formatPrice(vehicle.price)}
                 </div>
-                                 <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors" onClick={() => window.location.href = `/vehicle/${vehicle.id}`}>
-                   Ver Detalhes
-                 </Button>
+                                 <Button 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors cursor-pointer" 
+                  onClick={() => window.location.href = `/vehicle/${vehicle.id}`}
+                >
+                  Ver Detalhes
+                </Button>
               </div>
             </CardFooter>
           </Card>

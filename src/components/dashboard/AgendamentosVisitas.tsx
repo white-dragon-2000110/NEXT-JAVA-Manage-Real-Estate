@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Calendar, Search, Filter, Eye, MessageSquare, Phone, MapPin, Clock, User, Car } from 'lucide-react'
+import { Calendar, Search, Filter, Eye, MessageSquare, Phone, MapPin, Clock, User, Car, X, Check } from 'lucide-react'
 
 interface Appointment {
   id: string
@@ -202,8 +202,8 @@ export function AgendamentosVisitas() {
                 <SelectItem value="week">Esta semana</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterStatus('all'); setFilterDate('all') }}>
-              <Filter className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterStatus('all'); setFilterDate('all') }} className="cursor-pointer">
+              <X className="h-4 w-4 mr-2" />
               Limpar Filtros
             </Button>
           </div>
@@ -311,7 +311,8 @@ export function AgendamentosVisitas() {
 
                   <div className="flex flex-col space-y-2 ml-4">
                     {appointment.status === 'scheduled' && (
-                      <Button size="sm" onClick={() => confirmAppointment(appointment.id)}>
+                      <Button size="sm" onClick={() => confirmAppointment(appointment.id)} className="cursor-pointer">
+                        <Check className="h-4 w-4 mr-1" />
                         Confirmar
                       </Button>
                     )}
@@ -336,7 +337,9 @@ export function AgendamentosVisitas() {
                         size="sm" 
                         variant="destructive" 
                         onClick={() => cancelAppointment(appointment.id)}
+                        className="cursor-pointer"
                       >
+                        <X className="h-4 w-4 mr-1" />
                         Cancelar
                       </Button>
                     )}

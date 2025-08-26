@@ -29,13 +29,13 @@ export default function DemoNavigationPage() {
       href: '/vehicles',
       color: 'text-purple-600'
     },
-    {
-      title: 'Busca',
-      description: 'Página de busca avançada',
-      icon: Search,
-      href: '/search',
-      color: 'text-orange-600'
-    },
+         {
+       title: 'Busca',
+       description: 'Página de busca avançada',
+       icon: Search,
+       href: '/properties',
+       color: 'text-orange-600'
+     },
     {
       title: 'Anunciar',
       description: 'Formulário para anunciar imóveis',
@@ -217,9 +217,9 @@ export default function DemoNavigationPage() {
           {/* Back to Home */}
           <div className="text-center">
             <Button asChild size="lg">
-              <Link href="/">
+              <Link href="/properties">
                 <Home className="h-4 w-4 mr-2" />
-                Voltar para o Início
+                Voltar para Imóveis
               </Link>
             </Button>
           </div>

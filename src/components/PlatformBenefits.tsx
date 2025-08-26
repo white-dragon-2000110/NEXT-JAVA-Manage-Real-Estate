@@ -15,9 +15,40 @@ import {
   CheckCircle
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 export function PlatformBenefits() {
+  const router = useRouter();
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null);
+
+  const handleButtonClick = (type: string) => {
+    if (type === 'COMPRADOR') {
+      router.push('/properties');
+    } else if (type === 'VENDEDOR') {
+      router.push('/sell');
+    } else if (type === 'CORRETOR') {
+      router.push('/dashboard/corretor');
+    }
+  };
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null);
+        const button = document.querySelector(`[data-button="${pressedButtonId}"]`) as HTMLElement;
+        if (button) {
+          button.style.backgroundColor = '#1A53E0';
+          button.style.borderColor = '#1A53E0';
+          button.style.transform = 'scale(1)';
+        }
+      }
+    };
+
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [pressedButtonId]);
+
   const userTypes = [
     {
       type: 'COMPRADOR',
@@ -118,12 +149,44 @@ export function PlatformBenefits() {
                 <div className="mt-auto">
                   <Button 
                     variant={userType.ctaVariant} 
-                    className="w-full"
-                    asChild
+                    className="w-full font-semibold cursor-pointer"
+                    onClick={() => handleButtonClick(userType.type)}
+                    data-button={userType.type.toLowerCase()}
+                                         style={{ 
+                       backgroundColor: '#1A53E0', 
+                       borderColor: '#1A53E0',
+                       color: 'white',
+                       cursor: 'pointer',
+                       transition: 'all 0.2s ease-in-out'
+                     }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== userType.type.toLowerCase()) {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== userType.type.toLowerCase()) {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId(userType.type.toLowerCase());
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === userType.type.toLowerCase()) {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
                   >
-                    <Link href={userType.type === 'COMPRADOR' ? '/properties' : userType.type === 'VENDEDOR' ? '/sell' : '/dashboard/corretor'}>
-                      {userType.cta}
-                    </Link>
+                    {userType.cta}
                   </Button>
                 </div>
               </CardContent>

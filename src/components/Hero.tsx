@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Search, Car, Truck, Bike } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -18,14 +18,32 @@ export function Hero() {
     quartos: '',
     area: ''
   })
+  const [isButtonPressed, setIsButtonPressed] = useState(false)
 
   const handleSearch = () => {
     const params = new URLSearchParams()
     Object.entries(searchParams).forEach(([key, value]) => {
       if (value) params.append(key, value)
     })
-    window.location.href = `/search?${params.toString()}`
+            window.location.href = `/properties?${params.toString()}`
   }
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (isButtonPressed) {
+        setIsButtonPressed(false);
+        const button = document.querySelector('[data-button="search"]') as HTMLElement;
+        if (button) {
+          button.style.backgroundColor = '#1A53E0';
+          button.style.borderColor = '#1A53E0';
+          button.style.transform = 'scale(1)';
+        }
+      }
+    };
+
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [isButtonPressed]);
 
   return (
     <section className="relative bg-gradient-to-br from-primary/10 via-background to-muted/30 py-20">
@@ -35,7 +53,7 @@ export function Hero() {
             Encontre o Imóvel dos Seus Sonhos
           </h1>
           <p className="text-xl md:text-2xl text-foreground/70 max-w-4xl mx-auto mb-8">
-            A plataforma mais completa para comprar, vender e alugar imóveis. 
+            A plataforma mais completa para comprar, vender e alugar imóveis.
             Milhares de imóveis em todo o Brasil com busca inteligente e IA avançada.
           </p>
         </div>
@@ -117,10 +135,44 @@ export function Hero() {
               </div>
             </div>
 
-            <Button 
+                        <Button 
               onClick={handleSearch} 
               className="w-full h-12 text-lg font-semibold"
               size="lg"
+              data-button="search"
+              style={{
+                backgroundColor: '#1A53E0',
+                borderColor: '#1A53E0',
+                color:'white',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease-in-out'
+              }}
+              onMouseEnter={(e) => {
+                if (!isButtonPressed) {
+                  e.currentTarget.style.backgroundColor = '#0f3bb8';
+                  e.currentTarget.style.borderColor = '#0f3bb8';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isButtonPressed) {
+                  e.currentTarget.style.backgroundColor = '#1A53E0';
+                  e.currentTarget.style.borderColor = '#1A53E0';
+                }
+              }}
+              onMouseDown={(e) => {
+                setIsButtonPressed(true);
+                e.currentTarget.style.backgroundColor = '#0a2a8a';
+                e.currentTarget.style.borderColor = '#0a2a8a';
+                e.currentTarget.style.transform = 'scale(0.98)';
+              }}
+              onMouseUp={(e) => {
+                if (isButtonPressed) {
+                  setIsButtonPressed(false);
+                  e.currentTarget.style.backgroundColor = '#0f3bb8';
+                  e.currentTarget.style.borderColor = '#0f3bb8';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }
+              }}
             >
               <Search className="h-5 w-5 mr-2" />
               Buscar Imóveis

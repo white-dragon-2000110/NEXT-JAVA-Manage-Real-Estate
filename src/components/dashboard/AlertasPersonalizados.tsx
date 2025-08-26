@@ -19,7 +19,8 @@ import {
   MapPin, 
   Calendar, 
   Building,
-  Zap
+  Zap,
+  Power
 } from 'lucide-react'
 
 interface Alert {
@@ -142,7 +143,7 @@ export function AlertasPersonalizados() {
             {filteredAlerts.length} alertas configurados para imóveis
           </p>
         </div>
-        <Button onClick={() => setShowCreateForm(true)}>
+        <Button onClick={() => setShowCreateForm(true)} className="cursor-pointer">
           <Plus className="h-4 w-4 mr-2" />
           Criar Alerta
         </Button>
@@ -198,7 +199,7 @@ export function AlertasPersonalizados() {
             <p className="text-foreground/60 mb-4">
               Crie seu primeiro alerta para receber notificações sobre novos imóveis
             </p>
-            <Button onClick={() => setShowCreateForm(true)}>
+            <Button onClick={() => setShowCreateForm(true)} className="cursor-pointer">
               <Plus className="h-4 w-4 mr-2" />
               Criar Alerta
             </Button>
@@ -252,7 +253,7 @@ export function AlertasPersonalizados() {
                       size="sm" 
                       variant={alert.isActive ? "outline" : "default"}
                       onClick={() => toggleAlertStatus(alert.id)}
-                      className="w-full"
+                      className="cursor-pointer"
                     >
                       {alert.isActive ? (
                         <>
@@ -280,7 +281,7 @@ export function AlertasPersonalizados() {
                       size="sm" 
                       variant="destructive" 
                       onClick={() => deleteAlert(alert.id)}
-                      className="w-full"
+                      className="cursor-pointer"
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
                       Excluir

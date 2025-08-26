@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { MapPin, Home, Building, Calendar, Car } from 'lucide-react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 interface Property {
   id: string
@@ -73,6 +74,13 @@ const mockProperties: Property[] = [
 ]
 
 export function FeaturedProperties() {
+  const router = useRouter();
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null);
+
+  const handleViewDetails = (propertyId: string) => {
+    router.push(`/property/${propertyId}`);
+  };
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -101,6 +109,23 @@ export function FeaturedProperties() {
       default: return <Building className="h-4 w-4" />
     }
   }
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null);
+        const button = document.querySelector(`[data-button="details-${pressedButtonId}"]`) as HTMLElement;
+        if (button) {
+          button.style.backgroundColor = '#1A53E0';
+          button.style.borderColor = '#1A53E0';
+          button.style.transform = 'scale(1)';
+        }
+      }
+    };
+
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [pressedButtonId]);
 
   return (
     <section className="py-20 bg-background">
@@ -167,10 +192,44 @@ export function FeaturedProperties() {
                 </div>
 
                 <div className="mt-auto">
-                  <Button className="w-full" asChild>
-                    <Link href={`/property/${property.id}`}>
-                      Ver Detalhes
-                    </Link>
+                  <Button 
+                    className="w-full cursor-pointer" 
+                    onClick={() => handleViewDetails(property.id)}
+                    data-button={`details-${property.id}`}
+                    style={{ 
+                      backgroundColor: '#1A53E0', 
+                      borderColor: '#1A53E0',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== property.id) {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== property.id) {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId(property.id);
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === property.id) {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
+                    Ver Detalhes
                   </Button>
                 </div>
               </CardContent>
@@ -179,10 +238,47 @@ export function FeaturedProperties() {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="h-12 px-8" asChild>
-            <Link href="/properties">
-              Ver Todos os Imóveis
-            </Link>
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="h-12 px-8 cursor-pointer" 
+            onClick={() => router.push('/properties')}
+            data-button="ver-todos-properties"
+            style={{ 
+              backgroundColor: '#1A53E0', 
+              borderColor: '#1A53E0',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease-in-out'
+            }}
+            onMouseEnter={(e) => {
+              if (pressedButtonId !== 'ver-todos-properties') {
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (pressedButtonId !== 'ver-todos-properties') {
+                e.currentTarget.style.backgroundColor = '#1A53E0';
+                e.currentTarget.style.borderColor = '#1A53E0';
+              }
+            }}
+            onMouseDown={(e) => {
+              setPressedButtonId('ver-todos-properties');
+              e.currentTarget.style.backgroundColor = '#0a2a8a';
+              e.currentTarget.style.borderColor = '#0a2a8a';
+              e.currentTarget.style.transform = 'scale(0.98)';
+            }}
+            onMouseUp={(e) => {
+              if (pressedButtonId === 'ver-todos-properties') {
+                setPressedButtonId(null);
+                e.currentTarget.style.backgroundColor = '#0f3bb8';
+                e.currentTarget.style.borderColor = '#0f3bb8';
+                e.currentTarget.style.transform = 'scale(1)';
+              }
+            }}
+          >
+            Ver Todos os Imóveis
           </Button>
         </div>
       </div>

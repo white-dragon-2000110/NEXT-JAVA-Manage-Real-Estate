@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Users, Search, Filter, Eye, MessageSquare, Phone, Mail, Star, TrendingUp, User, MapPin } from 'lucide-react'
+import { Users, Search, Filter, Eye, MessageSquare, Phone, Mail, Star, TrendingUp, User, MapPin, X } from 'lucide-react'
 
 interface Lead {
   id: string
@@ -128,8 +128,8 @@ export function LeadsRecebidos() {
                 <SelectItem value="converted">Convertidos</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterStatus('all') }}>
-              <Filter className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterStatus('all') }} className="cursor-pointer">
+              <X className="h-4 w-4 mr-2" />
               Limpar Filtros
             </Button>
           </div>

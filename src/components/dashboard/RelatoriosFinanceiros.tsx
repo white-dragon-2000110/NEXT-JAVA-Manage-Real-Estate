@@ -19,7 +19,8 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Eye
+  Eye,
+  X
 } from 'lucide-react'
 
 interface Subscription {
@@ -262,7 +263,7 @@ export function RelatoriosFinanceiros() {
               <SelectItem value="1y">1 ano</SelectItem>
             </SelectContent>
           </Select>
-          <Button onClick={exportReport}>
+          <Button onClick={exportReport} className="cursor-pointer">
             <Download className="h-4 w-4 mr-2" />
             Exportar Relatório
           </Button>
@@ -366,8 +367,8 @@ export function RelatoriosFinanceiros() {
                 <SelectItem value="pending">Pendente</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterPlan('all'); setFilterStatus('all') }}>
-              <Filter className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterPlan('all'); setFilterStatus('all') }} className="cursor-pointer">
+              <X className="h-4 w-4 mr-2" />
               Limpar Filtros
             </Button>
           </div>

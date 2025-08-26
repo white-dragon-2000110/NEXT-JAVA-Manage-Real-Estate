@@ -35,7 +35,7 @@ export function SearchHeader({
         <div className="flex items-center border rounded-lg p-1 bg-muted">
           <button
             onClick={() => onViewModeChange('grid')}
-            className={`p-2 rounded-md transition-colors ${
+            className={`p-2 rounded-md transition-colors cursor-pointer ${
               viewMode === 'grid' 
                 ? 'bg-background text-foreground shadow-sm' 
                 : 'text-foreground/60 hover:text-foreground'
@@ -45,7 +45,7 @@ export function SearchHeader({
           </button>
           <button
             onClick={() => onViewModeChange('list')}
-            className={`p-2 rounded-md transition-colors ${
+            className={`p-2 rounded-md transition-colors cursor-pointer ${
               viewMode === 'list' 
                 ? 'bg-background text-foreground shadow-sm' 
                 : 'text-foreground/60 hover:text-foreground'

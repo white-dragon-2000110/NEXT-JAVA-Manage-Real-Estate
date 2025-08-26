@@ -57,7 +57,8 @@ export function VehicleImageGallery({ images }: VehicleImageGalleryProps) {
                     variant="ghost"
                     size="sm"
                     onClick={previousImage}
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-background/80 hover:bg-background"
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg cursor-pointer"
+                    disabled={currentImageIndex === 0}
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </Button>
@@ -65,7 +66,8 @@ export function VehicleImageGallery({ images }: VehicleImageGalleryProps) {
                     variant="ghost"
                     size="sm"
                     onClick={nextImage}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-background/80 hover:bg-background"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg cursor-pointer"
+                    disabled={currentImageIndex === images.length - 1}
                   >
                     <ChevronRight className="h-5 w-5" />
                   </Button>
@@ -77,9 +79,9 @@ export function VehicleImageGallery({ images }: VehicleImageGalleryProps) {
                 variant="ghost"
                 size="sm"
                 onClick={toggleZoom}
-                className="absolute top-2 right-2 bg-background/80 hover:bg-background"
+                className="absolute top-4 right-4 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg cursor-pointer"
               >
-                <ZoomIn className="h-4 w-4" />
+                <ZoomIn className="h-5 w-5" />
               </Button>
 
               {/* Image Counter */}
@@ -98,15 +100,17 @@ export function VehicleImageGallery({ images }: VehicleImageGalleryProps) {
             <button
               key={index}
               onClick={() => setCurrentImageIndex(index)}
-              className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
                 index === currentImageIndex
-                  ? 'border-primary'
-                  : 'border-border hover:border-primary/50'
+                  ? 'border-primary scale-110'
+                  : 'border-transparent hover:border-primary/50'
               }`}
             >
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                <span className="text-foreground/40 text-xs">Thumb {index + 1}</span>
-              </div>
+              <img
+                src={image}
+                alt={`Vehicle image ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
             </button>
           ))}
         </div>
@@ -121,28 +125,32 @@ export function VehicleImageGallery({ images }: VehicleImageGalleryProps) {
               variant="ghost"
               size="sm"
               onClick={closeZoom}
-              className="absolute top-4 right-4 bg-background/80 hover:bg-background text-foreground"
+              className="absolute top-4 right-4 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg cursor-pointer"
             >
               <X className="h-5 w-5" />
             </Button>
 
-            {/* Zoom Controls */}
-            <div className="absolute top-4 left-4 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 bg-white/80 rounded-full p-2 shadow-lg">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={decreaseZoom}
-                disabled={zoomLevel <= 0.5}
-                className="bg-background/80 hover:bg-background"
+                className="rounded-full p-1 cursor-pointer"
+                disabled={zoomLevel <= 1}
               >
                 <ZoomOut className="h-4 w-4" />
               </Button>
+              
+              <span className="px-2 text-sm font-medium text-gray-800">
+                {Math.round(zoomLevel * 100)}%
+              </span>
+              
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={increaseZoom}
+                className="rounded-full p-1 cursor-pointer"
                 disabled={zoomLevel >= 3}
-                className="bg-background/80 hover:bg-background"
               >
                 <ZoomIn className="h-4 w-4" />
               </Button>

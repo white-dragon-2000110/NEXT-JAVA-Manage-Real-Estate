@@ -114,7 +114,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-lg">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 text-2xl font-bold text-foreground">
+          <Link href="/properties" className="inline-flex items-center space-x-2 text-2xl font-bold text-foreground">
             <Building className="h-8 w-8 text-primary" />
             <span className="bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">Real Estate</span>
           </Link>
@@ -248,19 +248,17 @@ export default function RegisterPage() {
                     className="pl-10 pr-10 h-11"
                     required
                   />
-                  <Button
+                  <button
                     type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-11 px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-foreground/40" />
+                      <EyeOff className="h-4 w-4 text-gray-400" />
                     ) : (
-                      <Eye className="h-4 w-4 text-foreground/40" />
+                      <Eye className="h-4 w-4 text-gray-400" />
                     )}
-                  </Button>
+                  </button>
                 </div>
                 
                 {/* Password Strength */}
@@ -300,19 +298,17 @@ export default function RegisterPage() {
                     className="pl-10 pr-10 h-11"
                     required
                   />
-                  <Button
+                  <button
                     type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-11 px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4 text-foreground/40" />
+                      <EyeOff className="h-4 w-4 text-gray-400" />
                     ) : (
-                      <Eye className="h-4 w-4 text-foreground/40" />
+                      <Eye className="h-4 w-4 text-gray-400" />
                     )}
-                  </Button>
+                  </button>
                 </div>
                 
                 {/* Password Match Indicator */}
@@ -407,13 +403,13 @@ export default function RegisterPage() {
           </CardContent>
         </Card>
 
-        {/* Back to Home */}
+        {/* Back to Properties */}
         <div className="text-center mt-6">
           <Link
-            href="/"
+            href="/properties"
             className="text-foreground/60 hover:text-foreground text-sm"
           >
-            ← Voltar para o início
+            ← Voltar para Imóveis
           </Link>
         </div>
       </div>

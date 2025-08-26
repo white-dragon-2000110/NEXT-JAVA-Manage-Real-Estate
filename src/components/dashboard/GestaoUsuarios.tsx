@@ -19,7 +19,9 @@ import {
   Phone,
   Calendar,
   MapPin,
-  TrendingUp
+  TrendingUp,
+  X,
+  Pause
 } from 'lucide-react'
 
 interface User {
@@ -324,8 +326,8 @@ export function GestaoUsuarios() {
                 <SelectItem value="announcements">Mais anúncios</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterRole('all'); setFilterStatus('all'); setSortBy('recent') }}>
-              <Filter className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterRole('all'); setFilterStatus('all'); setSortBy('recent') }} className="cursor-pointer">
+              <X className="h-4 w-4 mr-2" />
               Limpar Filtros
             </Button>
           </div>
@@ -417,14 +419,16 @@ export function GestaoUsuarios() {
                               size="sm" 
                               variant="destructive" 
                               onClick={() => suspendUser(user.id)}
+                              className="text-yellow-600 hover:text-yellow-700 cursor-pointer"
                             >
-                              <UserX className="h-4 w-4" />
+                              <Pause className="h-4 w-4" />
                             </Button>
                           ) : (
                             <Button 
                               size="sm" 
                               variant="default" 
                               onClick={() => activateUser(user.id)}
+                              className="text-green-600 hover:text-green-700 cursor-pointer"
                             >
                               <UserCheck className="h-4 w-4" />
                             </Button>

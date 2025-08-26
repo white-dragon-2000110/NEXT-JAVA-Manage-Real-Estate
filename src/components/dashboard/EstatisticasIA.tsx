@@ -19,7 +19,8 @@ import {
   Users,
   BarChart3,
   Activity,
-  Zap
+  Zap,
+  X
 } from 'lucide-react'
 
 export function EstatisticasIA() {
@@ -51,7 +52,7 @@ export function EstatisticasIA() {
               <SelectItem value="90d">90 dias</SelectItem>
             </SelectContent>
           </Select>
-          <Button onClick={exportReport}>
+          <Button onClick={exportReport} className="cursor-pointer">
             <Download className="h-4 w-4 mr-2" />
             Exportar Relatório
           </Button>
@@ -183,8 +184,8 @@ export function EstatisticasIA() {
                 <SelectItem value="rural">Rurais</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterCategory('all') }}>
-              <Filter className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterCategory('all') }} className="cursor-pointer">
+              <X className="h-4 w-4 mr-2" />
               Limpar Filtros
             </Button>
           </div>

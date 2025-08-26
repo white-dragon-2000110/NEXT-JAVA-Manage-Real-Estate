@@ -20,7 +20,8 @@ import {
   Star,
   Bed,
   Bath,
-  Heart
+  Heart,
+  X
 } from 'lucide-react'
 
 interface ComparisonProperty {
@@ -154,11 +155,11 @@ export function Comparacoes() {
           <p className="text-foreground/60">Compare diferentes imóveis para tomar a melhor decisão</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={addToComparison}>
+          <Button variant="outline" onClick={addToComparison} className="cursor-pointer">
             <Plus className="h-4 w-4 mr-2" />
-            Adicionar
+            Adicionar à Comparação
           </Button>
-          <Button onClick={shareComparison}>
+          <Button onClick={shareComparison} className="cursor-pointer">
             <Share2 className="h-4 w-4 mr-2" />
             Compartilhar
           </Button>
@@ -222,9 +223,9 @@ export function Comparacoes() {
                             variant="ghost"
                             size="sm"
                             onClick={() => removeFromComparison(property.id)}
-                            className="h-6 w-6 p-0"
+                            className="text-red-600 hover:text-red-700 cursor-pointer"
                           >
-                            <Trash2 className="h-3 w-3" />
+                            <X className="h-4 w-4" />
                           </Button>
                         </div>
                       </th>

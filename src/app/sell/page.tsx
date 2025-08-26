@@ -26,6 +26,7 @@ import {
 
 export default function SellPage() {
   const [currentStep, setCurrentStep] = useState(1)
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     type: '',
     title: '',
@@ -55,11 +56,30 @@ export default function SellPage() {
     if (currentStep > 1) setCurrentStep(currentStep - 1)
   }
 
+  // Global mouse up event handler for button release
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null)
+        // Reset button styles
+        const button = document.querySelector(`[data-button="${pressedButtonId}"]`) as HTMLElement
+        if (button) {
+          button.style.backgroundColor = '#1A53E0'
+          button.style.borderColor = '#1A53E0'
+          button.style.transform = 'scale(1)'
+        }
+      }
+    }
+
+    document.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [pressedButtonId])
+
   return (
     <RootLayout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-primary/10 via-background to-muted/30 py-16">
+        <div className="py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
               Anuncie seu Imóvel
@@ -327,21 +347,93 @@ export default function SellPage() {
               )}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between pt-8">
+              <div className="flex justify-between pt-8 cursor-pointer">
                 <Button
-                  variant="outline"
                   onClick={prevStep}
                   disabled={currentStep === 1}
+                  variant="outline"
+                  className="cursor-pointer"
                 >
                   Anterior
                 </Button>
 
                 {currentStep < 4 ? (
-                  <Button onClick={nextStep}>
+                  <Button 
+                    onClick={nextStep}
+                    data-button="next-step-button"
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== 'next-step-button') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== 'next-step-button') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId('next-step-button');
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === 'next-step-button') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
                     Próximo
                   </Button>
                 ) : (
-                  <Button>
+                  <Button 
+                    data-button="submit-button"
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== 'submit-button') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== 'submit-button') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId('submit-button');
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === 'submit-button') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
                     Enviar Anúncio
                   </Button>
                 )}

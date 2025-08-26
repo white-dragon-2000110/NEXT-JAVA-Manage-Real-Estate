@@ -13,7 +13,8 @@ import {
   Settings, 
   LogOut,
   Building,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react'
 
 interface DashboardSidebarProps {
@@ -63,7 +64,7 @@ export function DashboardSidebar({ activeSection, onSectionChange }: DashboardSi
         {/* Header */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/properties" className="flex items-center space-x-2">
               <Building className="h-8 w-8 text-primary" />
               {!isCollapsed && (
                 <span className="text-xl font-bold text-foreground">RealEstatePro</span>
@@ -73,11 +74,9 @@ export function DashboardSidebar({ activeSection, onSectionChange }: DashboardSi
               variant="ghost"
               size="sm"
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="h-8 w-8 p-0"
+              className="absolute -right-3 top-6 h-6 w-6 rounded-full border bg-background cursor-pointer"
             >
-              <ChevronRight className={`h-4 w-4 transition-transform ${
-                isCollapsed ? 'rotate-180' : ''
-              }`} />
+              <ChevronLeft className={`h-4 w-4 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} />
             </Button>
           </div>
         </div>
@@ -116,7 +115,7 @@ export function DashboardSidebar({ activeSection, onSectionChange }: DashboardSi
                 <button
                   key={item.id}
                   onClick={() => onSectionChange(item.id as any)}
-                  className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors cursor-pointer ${
                     isActive 
                       ? 'bg-primary text-primary-foreground' 
                       : 'hover:bg-muted text-foreground'

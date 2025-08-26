@@ -19,7 +19,9 @@ import {
   MapPin,
   Calendar,
   AlertTriangle,
-  Clock
+  Clock,
+  Check,
+  X
 } from 'lucide-react'
 
 interface Announcement {
@@ -341,8 +343,8 @@ export function ModeracaoAnuncios() {
                 <SelectItem value="rural">Rural</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterStatus('all'); setFilterPriority('all'); setFilterCategory('all') }}>
-              <Filter className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={() => { setSearchTerm(''); setFilterStatus('all'); setFilterPriority('all'); setFilterCategory('all') }} className="cursor-pointer">
+              <X className="h-4 w-4 mr-2" />
               Limpar Filtros
             </Button>
           </div>
@@ -429,6 +431,7 @@ export function ModeracaoAnuncios() {
                                 size="sm" 
                                 variant="default" 
                                 onClick={() => approveAnnouncement(announcement.id)}
+                                className="cursor-pointer"
                               >
                                 <CheckCircle className="h-4 w-4" />
                               </Button>
@@ -436,6 +439,7 @@ export function ModeracaoAnuncios() {
                                 size="sm" 
                                 variant="destructive" 
                                 onClick={() => rejectAnnouncement(announcement.id)}
+                                className="text-red-600 hover:text-red-700 cursor-pointer"
                               >
                                 <XCircle className="h-4 w-4" />
                               </Button>
@@ -443,6 +447,7 @@ export function ModeracaoAnuncios() {
                                 size="sm" 
                                 variant="secondary" 
                                 onClick={() => pauseAnnouncement(announcement.id)}
+                                className="text-yellow-600 hover:text-yellow-700 cursor-pointer"
                               >
                                 <Pause className="h-4 w-4" />
                               </Button>

@@ -22,6 +22,7 @@ import {
   MessageSquare,
   ExternalLink
 } from 'lucide-react'
+import Link from 'next/link'
 
 interface FavoriteProperty {
   id: string
@@ -278,7 +279,7 @@ export function Favoritos() {
                     {getTypeLabel(property.type)}
                   </Badge>
                 </div>
-                <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                   <Heart className="h-4 w-4 text-red-500 fill-current" />
                 </Button>
               </div>
@@ -335,8 +336,34 @@ export function Favoritos() {
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="flex-1"
+                    className="flex-1 cursor-pointer"
                     onClick={() => handleButtonClick(property, 'view')}
+                    data-button="ver-favorito"
+                    style={{ 
+                      backgroundColor: '#1A53E0', 
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0f3bb8';
+                      e.currentTarget.style.borderColor = '#0f3bb8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#1A53E0';
+                      e.currentTarget.style.borderColor = '#1A53E0';
+                    }}
+                    onMouseDown={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0f3bb8';
+                      e.currentTarget.style.borderColor = '#0f3bb8';
+                      e.currentTarget.style.transform = 'scale(1)';
+                    }}
                   >
                     <Eye className="h-4 w-4 mr-2" />
                     Ver
@@ -344,6 +371,7 @@ export function Favoritos() {
                   <Button 
                     variant="outline" 
                     size="sm"
+                    className="cursor-pointer"
                     onClick={() => handleButtonClick(property, 'share')}
                   >
                     <Share2 className="h-4 w-4" />
@@ -351,7 +379,7 @@ export function Favoritos() {
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="text-destructive hover:text-destructive"
+                    className="text-destructive hover:text-destructive cursor-pointer"
                     onClick={() => handleButtonClick(property, 'delete')}
                   >
                     <Trash2 className="h-4 w-4" />
@@ -468,11 +496,11 @@ export function Favoritos() {
               <div className="space-y-3">
                 {modalAction === 'view' && (
                   <>
-                    <Button className="w-full" onClick={handleView}>
+                    <Button className="w-full cursor-pointer" onClick={handleView}>
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Ver Detalhes Completos
                     </Button>
-                    <Button variant="outline" className="w-full" onClick={closeModal}>
+                    <Button variant="outline" className="w-full cursor-pointer" onClick={closeModal}>
                       Fechar
                     </Button>
                   </>
@@ -480,19 +508,16 @@ export function Favoritos() {
 
                 {modalAction === 'share' && (
                   <>
-                    <Button className="w-full" onClick={handleShare}>
+                    <Button className="w-full cursor-pointer" onClick={handleShare}>
                       <Share2 className="h-4 w-4 mr-2" />
                       Copiar Link
                     </Button>
-                    <Button variant="outline" className="w-full">
-                      <MessageSquare className="h-4 w-4 mr-2" />
-                      Compartilhar via WhatsApp
+                    <Button variant="outline" className="w-full cursor-pointer">
+                      <Link href={`/property/${selectedProperty?.id}`}>
+                        Ver no Site
+                      </Link>
                     </Button>
-                    <Button variant="outline" className="w-full">
-                      <Phone className="h-4 w-4 mr-2" />
-                      Compartilhar via SMS
-                    </Button>
-                    <Button variant="outline" className="w-full" onClick={closeModal}>
+                    <Button variant="outline" className="w-full cursor-pointer" onClick={closeModal}>
                       Cancelar
                     </Button>
                   </>
@@ -510,13 +535,13 @@ export function Favoritos() {
                     </div>
                     <Button 
                       variant="destructive" 
-                      className="w-full" 
+                      className="w-full cursor-pointer" 
                       onClick={handleDelete}
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
                       Sim, Excluir
                     </Button>
-                    <Button variant="outline" className="w-full" onClick={closeModal}>
+                    <Button variant="outline" className="w-full cursor-pointer" onClick={closeModal}>
                       Cancelar
                     </Button>
                   </>

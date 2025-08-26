@@ -19,8 +19,12 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function ContactPage() {
+  const router = useRouter();
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null);
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -64,6 +68,28 @@ export default function ContactPage() {
       })
     }, 5000)
   }
+
+  const handleVerFAQ = () => {
+    // Navigate to FAQ page or scroll to FAQ section
+    router.push('/faq');
+  };
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (pressedButtonId) {
+        setPressedButtonId(null);
+        const button = document.querySelector(`[data-button="${pressedButtonId}"]`) as HTMLElement;
+        if (button) {
+          button.style.backgroundColor = '#1A53E0';
+          button.style.borderColor = '#1A53E0';
+          button.style.transform = 'scale(1)';
+        }
+      }
+    };
+
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [pressedButtonId]);
 
   const contactInfo = [
     {
@@ -131,8 +157,8 @@ export default function ContactPage() {
             <p className="text-foreground/60 mb-6">
               Obrigado pelo contato. Nossa equipe responderá em breve.
             </p>
-            <Button onClick={() => setSubmitSuccess(false)} className="w-full">
-              Enviar Nova Mensagem
+            <Button onClick={() => setSubmitSuccess(false)} className="w-full cursor-pointer">
+              Fechar
             </Button>
           </Card>
         </div>
@@ -144,7 +170,7 @@ export default function ContactPage() {
     <RootLayout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-primary/10 via-background to-muted/30 py-16">
+        <div className="py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent animate-gradient">
               Entre em Contato
@@ -286,8 +312,44 @@ export default function ContactPage() {
 
                     <Button 
                       type="submit" 
-                      className="w-full" 
+                      className="w-full h-12 text-lg font-semibold" 
                       disabled={isSubmitting}
+                      data-button="enviar-mensagem"
+                      style={{ 
+                        backgroundColor: '#1A53E0', 
+                        borderColor: '#1A53E0',
+                        color: 'white',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSubmitting && pressedButtonId !== 'enviar-mensagem') {
+                          e.currentTarget.style.backgroundColor = '#0f3bb8';
+                          e.currentTarget.style.borderColor = '#0f3bb8';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isSubmitting && pressedButtonId !== 'enviar-mensagem') {
+                          e.currentTarget.style.backgroundColor = '#1A53E0';
+                          e.currentTarget.style.borderColor = '#1A53E0';
+                        }
+                      }}
+                      onMouseDown={(e) => {
+                        if (!isSubmitting) {
+                          setPressedButtonId('enviar-mensagem');
+                          e.currentTarget.style.backgroundColor = '#0a2a8a';
+                          e.currentTarget.style.borderColor = '#0a2a8a';
+                          e.currentTarget.style.transform = 'scale(0.98)';
+                        }
+                      }}
+                      onMouseUp={(e) => {
+                        if (!isSubmitting && pressedButtonId === 'enviar-mensagem') {
+                          setPressedButtonId(null);
+                          e.currentTarget.style.backgroundColor = '#0f3bb8';
+                          e.currentTarget.style.borderColor = '#0f3bb8';
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }
+                      }}
                     >
                       {isSubmitting ? (
                         <>
@@ -361,7 +423,7 @@ export default function ContactPage() {
               </Card>
 
               {/* FAQ Link */}
-              <Card>
+              {/* <Card>
                 <CardContent className="p-6 text-center">
                   <h4 className="font-semibold text-foreground mb-2">
                     Precisa de Ajuda Rápida?
@@ -369,16 +431,54 @@ export default function ContactPage() {
                   <p className="text-sm text-foreground/60 mb-4">
                     Consulte nossas perguntas frequentes
                   </p>
-                  <Button variant="outline" className="w-full">
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-lg font-semibold"
+                    onClick={handleVerFAQ}
+                    data-button="ver-faq"
+                    style={{ 
+                      backgroundColor: '#1A53E0', 
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== 'ver-faq') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== 'ver-faq') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId('ver-faq');
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === 'ver-faq') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
                     Ver FAQ
                   </Button>
                 </CardContent>
-              </Card>
+              </Card> */}
             </div>
           </div>
 
           {/* Map Section */}
-          <div className="mt-12">
+          <div className="mt-6">
             <Card>
               <CardHeader>
                 <CardTitle>Nossa Localização</CardTitle>

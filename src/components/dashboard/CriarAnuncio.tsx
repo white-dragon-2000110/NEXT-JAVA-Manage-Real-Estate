@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -23,7 +24,9 @@ import {
   Gauge,
   Fuel,
   Settings,
-  Star
+  Star,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
 
 interface VehicleForm {
@@ -86,6 +89,16 @@ export function CriarAnuncio() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [pressedButtonId, setPressedButtonId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      setPressedButtonId(null)
+    }
+
+    window.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => window.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [])
 
   const handleInputChange = (field: keyof VehicleForm, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -418,16 +431,15 @@ export function CriarAnuncio() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    className="h-6 w-6 p-0"
-                    onClick={() => removePhoto(index)}
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </div>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => removePhoto(index)}
+                  className="absolute top-2 right-2 h-6 w-6 p-0 cursor-pointer"
+                >
+                  <X className="h-3 w-3" />
+                </Button>
                 {index === 0 && (
                   <Badge className="absolute top-2 left-2 bg-primary">
                     Principal
@@ -565,17 +577,94 @@ export function CriarAnuncio() {
                 variant="outline"
                 onClick={prevStep}
                 disabled={currentStep === 1}
+                className="cursor-pointer"
               >
                 Anterior
               </Button>
 
               <div className="flex space-x-2">
                 {currentStep < 4 ? (
-                  <Button type="button" onClick={nextStep}>
+                  <Button 
+                    type="button" 
+                    onClick={nextStep}
+                    data-button="next-step-button"
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (pressedButtonId !== 'next-step-button') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (pressedButtonId !== 'next-step-button') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      setPressedButtonId('next-step-button');
+                      e.currentTarget.style.backgroundColor = '#0a2a8a';
+                      e.currentTarget.style.borderColor = '#0a2a8a';
+                      e.currentTarget.style.transform = 'scale(0.98)';
+                    }}
+                    onMouseUp={(e) => {
+                      if (pressedButtonId === 'next-step-button') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
                     Próximo
                   </Button>
                 ) : (
-                  <Button type="submit" disabled={isSubmitting}>
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    data-button="submit-button"
+                    style={{
+                      backgroundColor: '#1A53E0',
+                      borderColor: '#1A53E0',
+                      color: 'white',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isSubmitting && pressedButtonId !== 'submit-button') {
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSubmitting && pressedButtonId !== 'submit-button') {
+                        e.currentTarget.style.backgroundColor = '#1A53E0';
+                        e.currentTarget.style.borderColor = '#1A53E0';
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      if (!isSubmitting) {
+                        setPressedButtonId('submit-button');
+                        e.currentTarget.style.backgroundColor = '#0a2a8a';
+                        e.currentTarget.style.borderColor = '#0a2a8a';
+                        e.currentTarget.style.transform = 'scale(0.98)';
+                      }
+                    }}
+                    onMouseUp={(e) => {
+                      if (!isSubmitting && pressedButtonId === 'submit-button') {
+                        setPressedButtonId(null);
+                        e.currentTarget.style.backgroundColor = '#0f3bb8';
+                        e.currentTarget.style.borderColor = '#0f3bb8';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }
+                    }}
+                  >
                     {isSubmitting ? (
                       <>
                         <Save className="h-4 w-4 mr-2 animate-spin" />
