@@ -36,7 +36,7 @@ const mockProperties: Property[] = [
     area: 280,
     parking: 2,
     type: 'Casa',
-    image: '/api/placeholder/400/300',
+    image: '/picture/1.jpg',
     featured: true,
     status: 'available'
   },
@@ -50,7 +50,7 @@ const mockProperties: Property[] = [
     area: 180,
     parking: 1,
     type: 'Apartamento',
-    image: '/api/placeholder/400/300',
+    image: '/picture/2.jpg',
     status: 'available'
   },
   {
@@ -63,7 +63,7 @@ const mockProperties: Property[] = [
     area: 320,
     parking: 3,
     type: 'Apartamento',
-    image: '/api/placeholder/400/300',
+    image: '/picture/3.jpg',
     featured: true,
     status: 'available'
   },
@@ -77,7 +77,7 @@ const mockProperties: Property[] = [
     area: 450,
     parking: 2,
     type: 'Casa',
-    image: '/api/placeholder/400/300',
+    image: '/picture/4.jpg',
     status: 'available'
   },
   {
@@ -90,7 +90,7 @@ const mockProperties: Property[] = [
     area: 120,
     parking: 1,
     type: 'Comercial',
-    image: '/api/placeholder/400/300',
+    image: '/picture/5.jpg',
     status: 'available'
   },
   {
@@ -103,7 +103,7 @@ const mockProperties: Property[] = [
     area: 800,
     parking: 0,
     type: 'Terreno',
-    image: '/api/placeholder/400/300',
+    image: '/picture/6.jpg',
     status: 'available'
   }
 ]
@@ -537,7 +537,7 @@ export default function PropertiesPage() {
 
                 <div className="flex items-center gap-4">
                   {/* View Mode Toggle */}
-                  <div className="flex items-center border-2 border-gray-200 rounded-xl p-1 bg-white/80 backdrop-blur-sm shadow-lg">
+                  {/* <div className="flex items-center border-2 border-gray-200 rounded-xl p-1 bg-white/80 backdrop-blur-sm shadow-lg">
                     <button
                       onClick={() => setViewMode('grid')}
                       className={`p-3 rounded-lg transition-all duration-300 cursor-pointer transform hover:scale-105 ${viewMode === 'grid'
@@ -556,7 +556,7 @@ export default function PropertiesPage() {
                     >
                       <List className="h-5 w-5" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -717,30 +717,28 @@ function PropertyCard({
     <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white rounded-xl">
       {/* Image Container */}
       <div className="relative h-[170px] overflow-hidden">
-        {/* Beautiful Ocean View Image */}
-        <div className="w-full h-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 flex items-center justify-center relative">
-          {/* Ocean View Background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-blue-400 to-blue-600 opacity-80"></div>
+        {/* Real Property Image */}
+        <img
+          src={property.image}
+          alt={property.title}
+          style={{visibility:'visible'}}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            // Fallback to gradient if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.style.background = 'linear-gradient(to-br, #e0e7ff, #c7ff, #a5b4fc)';
+            target.style.display = 'none';
+          }}
+        />
 
-          {/* Living Room Furniture */}
-          <div className="relative z-10 w-full h-full flex items-end justify-center pb-8">
-            <div className="text-center text-white">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3">
-                <Home className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-white/90 text-sm font-medium">Vista para o Mar</div>
-            </div>
-          </div>
-
-          {/* Favorite Button - Top Right */}
-          <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200">
-            <Heart className="h-4 w-4 text-gray-700" />
-          </button>
-        </div>
+        {/* Favorite Button - Top Right */}
+        <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200">
+          <Heart className="h-4 w-4 text-gray-700" />
+        </button>
 
         {
           property.featured && (
-            <Badge className="absolute top-3 left-3 bg-rose-400 text-gray-800 border-0 shadow-sm text-xs font-medium">
+            <Badge className="absolute top-3 left-3 bg-[#eb5b02] text-gray-800 border-0 shadow-sm text-xs font-medium">
               Novo
             </Badge>
           )/* Type Badge - Top Left */
@@ -825,30 +823,28 @@ function PropertyListCard({
     <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white rounded-xl">
       {/* Image Container */}
       <div className="relative h-[170px] overflow-hidden">
-        {/* Beautiful Ocean View Image */}
-        <div className="w-full h-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 flex items-center justify-center relative">
-          {/* Ocean View Background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-blue-400 to-blue-600 opacity-80"></div>
+        {/* Real Property Image */}
+        <img
+          src={property.image}
+          alt={property.title}
+          style={{visibility:'visible'}}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            // Fallback to gradient if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.style.background = 'linear-gradient(to-br, #e0e7ff, #c7d2fe, #a5b4fc)';
+            target.style.display = 'none';
+          }}
+        />
 
-          {/* Living Room Furniture */}
-          <div className="relative z-10 w-full h-full flex items-end justify-center pb-8">
-            <div className="text-center text-white">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3">
-                <Home className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-white/90 text-sm font-medium">Vista para o Mar</div>
-            </div>
-          </div>
-
-          {/* Favorite Button - Top Right */}
-          <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200">
-            <Heart className="h-4 w-4 text-gray-700" />
-          </button>
-        </div>
+        {/* Favorite Button - Top Right */}
+        <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200">
+          <Heart className="h-4 w-4 text-gray-700" />
+        </button>
 
         {
           property.featured && (
-            <Badge className="absolute top-3 left-3 bg-rose-400 text-gray-800 border-0 shadow-sm text-xs font-medium">
+            <Badge className="absolute top-3 left-3 bg-[#eb5b02] text-gray-800 border-0 shadow-sm text-xs font-medium">
               Novo
             </Badge>
           )/* Type Badge - Top Left */
@@ -918,33 +914,31 @@ function FeaturedPropertyCard({ property }: { property: Property }) {
   }
 
   return (
-    <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white rounded-xl">
+    <Card className="group relative overflow-hidden border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 bg-white rounded-xl">
       {/* Image Container */}
       <div className="relative h-[170px] overflow-hidden">
-        {/* Beautiful Ocean View Image */}
-        <div className="w-full h-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 flex items-center justify-center relative">
-          {/* Ocean View Background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-blue-400 to-blue-600 opacity-80"></div>
+        {/* Real Property Image */}
+        <img
+          src={property.image}
+          alt={property.title}
+          style={{visibility:'visible'}}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            // Fallback to gradient if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.style.background = 'linear-gradient(to-br, #e0e7ff, #c7d2fe, #a5b4fc)';
+            target.style.display = 'none';
+          }}
+        />
 
-          {/* Living Room Furniture */}
-          <div className="relative z-10 w-full h-full flex items-end justify-center pb-8">
-            <div className="text-center text-white">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3">
-                <Home className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-white/90 text-sm font-medium">Vista para o Mar</div>
-            </div>
-          </div>
-
-          {/* Favorite Button - Top Right */}
-          <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200">
-            <Heart className="h-4 w-4 text-gray-700" />
-          </button>
-        </div>
+        {/* Favorite Button - Top Right */}
+        <button className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all duration-200">
+          <Heart className="h-4 w-4 text-gray-700" />
+        </button>
 
         {
           property.featured && (
-            <Badge className="absolute top-3 left-3 bg-rose-400 text-gray-800 border-0 shadow-sm text-xs font-medium">
+            <Badge className="absolute top-3 left-3 bg-[#eb5b02] text-gray-800 border-0 shadow-sm text-xs font-medium">
               Novo
             </Badge>
           )/* Type Badge - Top Left */

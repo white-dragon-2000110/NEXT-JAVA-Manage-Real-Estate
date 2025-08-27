@@ -30,7 +30,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50">
+    <nav className="bg-background sticky top-0 z-50">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -41,28 +41,34 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+                    {/* Desktop Navigation */}
           {!isMobile && (
             <div className="hidden md:flex items-center space-x-8">
               {navigation.map((item) => {
                 const active = isActive(item.href)
                 return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`relative px-3 py-2 rounded-md transition-all duration-200 ${
-                      active
+                  <div key={item.name} className="relative">
+                    <Link
+                      href={item.href}
+                      className={`relative px-3 rounded-md transition-all duration-200 ${active
                         ? 'text-white font-medium'
                         : 'text-foreground/80 hover:text-foreground hover:bg-accent/50'
-                    }`}
-                    style={active ? {
-                      background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
-                      backgroundSize: '200% 200%',
-                      animation: 'gradient 3s ease infinite'
-                    } : {}}
-                  >
-                    {item.name}
-                  </Link>
+                        }`}
+                      style={active ? {
+                        border: '1px solid black',
+                        borderRadius: '20px',
+                        color: 'black',
+                        backgroundSize: '200% 200%',
+                        animation: 'gradient 3s ease infinite'
+                      } : {}}
+                    >
+                      {item.name}
+                    </Link>
+                     {/* Line under each button */}
+                     <div className={`absolute -bottom-5 left-1/2 transform -translate-x-1/2 h-0.5 transition-all duration-300 ${
+                       active ? 'bg-neutral-300' : 'bg-transparent'
+                     }`} style={{ width: 'fit-content', minWidth: '80%' }}></div>
+                  </div>
                 )
               })}
             </div>
@@ -112,26 +118,30 @@ export function Navbar() {
         {isMobile && isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-border">
-              {navigation.map((item) => {
+                            {navigation.map((item) => {
                 const active = isActive(item.href)
                 return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`block px-3 py-2 rounded-md transition-colors ${
-                      active
+                  <div key={item.name} className="relative">
+                    <Link
+                      href={item.href}
+                      className={`block px-3 py-2 rounded-md transition-colors ${active
                         ? 'text-white font-medium'
                         : 'text-foreground/80 hover:text-foreground hover:bg-accent'
-                    }`}
-                    style={active ? {
-                      background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
-                      backgroundSize: '200% 200%',
-                      animation: 'gradient 3s ease infinite'
-                    } : {}}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
+                        }`}
+                      style={active ? {
+                        background: 'linear-gradient(to right, #a855f7, #7c3aed, #3b82f6)',
+                        backgroundSize: '200% 200%',
+                        animation: 'gradient 3s ease infinite'
+                      } : {}}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                     {/* Line under each mobile button */}
+                     <div className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-0.5 transition-all duration-300 ${
+                       active ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'bg-transparent'
+                     }`} style={{ width: 'fit-content', minWidth: '100%' }}></div>
+                  </div>
                 )
               })}
               <div className="pt-4 space-y-2">
