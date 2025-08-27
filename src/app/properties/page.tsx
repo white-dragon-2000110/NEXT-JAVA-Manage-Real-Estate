@@ -726,8 +726,7 @@ function PropertyCard({
           onError={(e) => {
             // Fallback to gradient if image fails to load
             const target = e.target as HTMLImageElement;
-            target.style.background = 'linear-gradient(to-br, #e0e7ff, #c7ff, #a5b4fc)';
-            target.style.display = 'none';
+            target.style.background = 'gray
           }}
         />
 
@@ -770,17 +769,17 @@ function PropertyCard({
         </div>
 
         {/* Features Row */}
-        <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
+        <div className="flex items-center text-gray-500 text-sm mb-4">
           <div className="flex items-center">
-            <Bed className="h-4 w-4 mr-1 text-gray-400" />
+            <Bed className="h-4 w-4 mr-2 text-gray-400" />
             <span>{property.bedrooms}</span>
           </div>
-          <div className="flex items-center">
-            <Bath className="h-4 w-4 mr-1 text-gray-400" />
+          <div className="flex items-center ml-3">
+            <Bath className="h-4 w-4 mr-2 text-gray-400" />
             <span>{property.bathrooms}</span>
           </div>
-          <div className="flex items-center">
-            <Square className="h-4 w-4 mr-1 text-gray-400" />
+          <div className="flex items-center ml-3">
+            <Square className="h-4 w-4 mr-2 text-gray-400" />
             <span>{property.area}m²</span>
           </div>
         </div>
@@ -832,8 +831,8 @@ function PropertyListCard({
           onError={(e) => {
             // Fallback to gradient if image fails to load
             const target = e.target as HTMLImageElement;
-            target.style.background = 'linear-gradient(to-br, #e0e7ff, #c7d2fe, #a5b4fc)';
-            target.style.display = 'none';
+            target.style.background = 'gray';
+            
           }}
         />
 
@@ -922,12 +921,12 @@ function FeaturedPropertyCard({ property }: { property: Property }) {
           src={property.image}
           alt={property.title}
           style={{visibility:'visible'}}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover z-50 visibility-visible "
           onError={(e) => {
             // Fallback to gradient if image fails to load
             const target = e.target as HTMLImageElement;
-            target.style.background = 'linear-gradient(to-br, #e0e7ff, #c7d2fe, #a5b4fc)';
-            target.style.display = 'none';
+            target.style.background = 'gray';
+            
           }}
         />
 
@@ -970,17 +969,17 @@ function FeaturedPropertyCard({ property }: { property: Property }) {
         </div>
 
         {/* Features Row */}
-        <div className="flex items-center justify-between text-gray-500 text-sm mb-4">
+        <div className="flex items-center text-gray-500 text-sm mb-4">
           <div className="flex items-center">
-            <Bed className="h-4 w-4 mr-1 text-gray-400" />
+            <Bed className="h-4 w-4 mr-2 text-gray-400" />
             <span>{property.bedrooms}</span>
           </div>
-          <div className="flex items-center">
-            <Bath className="h-4 w-4 mr-1 text-gray-400" />
+          <div className="flex items-center ml-2">
+            <Bath className="h-4 w-4 mr-2 text-gray-400" />
             <span>{property.bathrooms}</span>
           </div>
-          <div className="flex items-center">
-            <Square className="h-4 w-4 mr-1 text-gray-400" />
+          <div className="flex items-center ml-2">
+            <Square className="h-4 w-4 mr-2 text-gray-400" />
             <span>{property.area}m²</span>
           </div>
         </div>
